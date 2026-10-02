@@ -31,8 +31,8 @@ Install the official Unity plugin in Codex and connect your target Unity Editor 
 Clone this repository to a separate location, then run:
 
 ```bash
-git clone https://github.com/gumpnart/unity-character-animation-skills.git
-python unity-character-animation-skills/plugins/unity-2-5d-character/scripts/install_pack.py --project "/absolute/path/MyUnityGame"
+git clone https://github.com/gumpnart/unity-character-creation-plugin.git
+python unity-character-creation-plugin/plugins/unity-character-creation-plugin/scripts/install_pack.py --project "/absolute/path/MyUnityGame"
 ```
 
 The installer copies all 13 directories to `.agents/skills/` and initializes missing canonical specs under `character-production/`. Existing specs are preserved. If pack skill directories already exist, use `--replace-skills` deliberately to update those 13 directories. After inspecting a known legacy installation, `--remove-legacy` removes only `.agents/skills/unity-eight-direction-character`; it never deletes unrelated skills or assets. Open a new Codex session in the Unity project after installation.

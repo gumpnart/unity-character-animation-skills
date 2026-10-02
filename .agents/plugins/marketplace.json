@@ -5,10 +5,10 @@
   },
   "plugins": [
     {
-      "name": "unity-2-5d-character",
+      "name": "unity-character-creation-plugin",
       "source": {
         "source": "local",
-        "path": "./plugins/unity-2-5d-character"
+        "path": "./plugins/unity-character-creation-plugin"
       },
       "policy": {
         "installation": "AVAILABLE",

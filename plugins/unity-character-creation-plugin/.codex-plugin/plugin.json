@@ -1,13 +1,13 @@
 {
-  "name": "unity-2-5d-character",
+  "name": "unity-character-creation-plugin",
   "version": "1.0.0",
   "description": "Produce modular 2.5D Unity RPG characters from master design through eight-direction skeletal actions, equipment, Animator, runtime and QA using 13 skills.",
   "author": {
     "name": "gumpnart",
     "url": "https://github.com/gumpnart"
   },
-  "homepage": "https://github.com/gumpnart/unity-character-animation-skills#readme",
-  "repository": "https://github.com/gumpnart/unity-character-animation-skills",
+  "homepage": "https://github.com/gumpnart/unity-character-creation-plugin#readme",
+  "repository": "https://github.com/gumpnart/unity-character-creation-plugin",
   "keywords": [
     "unity",
     "2-5d",
@@ -20,7 +20,7 @@
   ],
   "skills": "./skills/",
   "interface": {
-    "displayName": "Unity 2.5D Character",
+    "displayName": "Unity Character Creation",
     "shortDescription": "13 skills for master design, skeletal actions and Unity character production",
     "longDescription": "Start from canonical character identity and proportions, create eight direction masters and overlapping modular parts, build a shared Unity 2D rig, author arbitrary skeletal actions, integrate equipment and runtime behavior, and validate production through persistent specifications. Requires the separately installed official Unity plugin and a connected target Editor on every skill invocation.",
     "developerName": "gumpnart",
@@ -30,11 +30,11 @@
       "Read",
       "Write"
     ],
-    "websiteURL": "https://github.com/gumpnart/unity-character-animation-skills",
+    "websiteURL": "https://github.com/gumpnart/unity-character-creation-plugin",
     "defaultPrompt": [
-      "Use $character-production-orchestrator. Start a new Unity character from master-character. Do not skip stages.",
-      "Use $animation-clip-authoring. Create SwordLightAttack for South using the canonical character specs.",
-      "Use $character-production-qa. Inspect my character rig, equipment, animations and runtime."
+      "Use character-production-orchestrator from unity-character-creation-plugin. Start with master-character.",
+      "Use animation-clip-authoring from unity-character-creation-plugin. Create SwordLightAttack for South.",
+      "Use character-production-qa from unity-character-creation-plugin. Review my character."
     ],
     "brandColor": "#0F766E",
     "composerIcon": "./assets/icon.svg",

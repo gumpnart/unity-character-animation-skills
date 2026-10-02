@@ -1,17 +1,26 @@
 # ติดตั้ง Unity 2.5D Character ใน Codex Desktop
 
-Plugin: `unity-2-5d-character` · Version: `1.0.0` · รวมทั้ง 13 skills
+Plugin: `unity-character-creation-plugin` · Version: `1.0.0` · รวมทั้ง 13 skills
 
 ## 1. ดาวน์โหลดไว้บนเครื่องที่ใช้ Codex
 
 Clone repo ไว้ในโฟลเดอร์ถาวรบนเครื่องที่ใช้ Codex Desktop อย่าย้ายหรือลบโฟลเดอร์ระหว่างที่ยังใช้ local marketplace นี้อยู่
 
 ```bash
-git clone https://github.com/gumpnart/unity-character-animation-skills.git
-cd unity-character-animation-skills
+git clone https://github.com/gumpnart/unity-character-creation-plugin.git
+cd unity-character-creation-plugin
 ```
 
-โครงสร้างสำคัญคือ `.agents/plugins/marketplace.json` และ `plugins/unity-2-5d-character/.codex-plugin/plugin.json` ซึ่งชี้ถึง 13 skills ภายใน plugin Clone ให้ครบ รวมไฟล์และโฟลเดอร์ที่ขึ้นต้นด้วยจุด
+หากมี clone ของ repo เดิมอยู่แล้ว ให้แก้ origin เป็นชื่อใหม่:
+
+```bash
+git remote set-url origin https://github.com/gumpnart/unity-character-creation-plugin.git
+git remote get-url origin
+```
+
+ชื่อ plugin ที่ใช้เรียกงานตอนนี้คือ `unity-character-creation-plugin` หากเคยติดตั้งชื่อเดิมไว้ ให้เปิด marketplace ปัจจุบันแล้วติดตั้ง/เปิดใช้งานชื่อใหม่นี้ก่อนเรียกสกิล
+
+โครงสร้างสำคัญคือ `.agents/plugins/marketplace.json` และ `plugins/unity-character-creation-plugin/.codex-plugin/plugin.json` ซึ่งชี้ถึง 13 skills ภายใน plugin Clone ให้ครบ รวมไฟล์และโฟลเดอร์ที่ขึ้นต้นด้วยจุด
 
 ## 2. เปิดหน้าติดตั้ง plugin
 
@@ -33,7 +42,7 @@ python scripts/open_plugin.py --open
 
 ## 3. เชื่อมต่อ Unity
 
-ติดตั้ง official Unity plugin ใน Codex แยกต่างหาก และเปิด Unity Editor ของเกมเป้าหมาย ทั้ง 13 skills จะเรียก plugin นี้ใหม่ทุกครั้งก่อนเริ่มงาน ตรวจ [ขั้นตอน Unity](../plugins/unity-2-5d-character/skills/character-production-orchestrator/references/unity-plugin.md) และทำตามคำสั่งของ official plugin ที่ติดตั้งอยู่จริง
+ติดตั้ง official Unity plugin ใน Codex แยกต่างหาก และเปิด Unity Editor ของเกมเป้าหมาย ทั้ง 13 skills จะเรียก plugin นี้ใหม่ทุกครั้งก่อนเริ่มงาน ตรวจ [ขั้นตอน Unity](../plugins/unity-character-creation-plugin/skills/character-production-orchestrator/references/unity-plugin.md) และทำตามคำสั่งของ official plugin ที่ติดตั้งอยู่จริง
 
 แพ็กนี้รวม workflow และ templates; ไม่ได้ฝัง Unity Editor หรือ tooling ของ official Unity plugin การตั้งค่า CLI/Pipeline ที่อธิบายไว้รองรับ Unity 6.0+ และไม่ควรอัปเกรดโปรเจกต์เดิมโดยอัตโนมัติ
 
@@ -42,7 +51,7 @@ python scripts/open_plugin.py --open
 เลือก repo เกมที่มี `Assets`, `Packages`, `ProjectSettings` แล้วเริ่ม thread ใหม่:
 
 ```text
-Use the character-production-orchestrator skill from the unity-2-5d-character plugin.
+Use the character-production-orchestrator skill from the unity-character-creation-plugin plugin.
 Start a new modular 2.5D RPG character from master-character.
 Inspect the repository first.
 Create the character production specification before directional artwork or rigging.
@@ -54,7 +63,7 @@ Do not skip stages.
 เรียกขั้นตอนใดโดยตรงได้ เช่น:
 
 ```text
-Use the animation-clip-authoring skill from the unity-2-5d-character plugin.
+Use the animation-clip-authoring skill from the unity-character-creation-plugin plugin.
 Create SwordLightAttack for South using my canonical character specs.
 ```
 
