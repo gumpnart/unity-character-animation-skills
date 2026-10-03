@@ -1,19 +1,13 @@
-# Equipment and Sprite Library contract
+# Equipment: shared source poses, layered runtime frames
 
-Use categories corresponding to the 18 body parts plus six attachments. The socket names are Weapon_R, Weapon_L, HeadEquipment, ChestEquipment, BackEquipment, WaistEquipment. Labels encode the selected appearance and direction; for example `Base_South`, `LeatherArmor_South`, `Sword_South`, `None_South`. Record one consistent naming convention in EQUIPMENT_SPEC.md.
+Source slots remain Weapon_R→Hand_R, Weapon_L→Hand_L, HeadEquipment→Head, ChestEquipment/BackEquipment→Chest and WaistEquipment→Pelvis. Items equip on this authoring skeleton and reuse source AnimationClips; the rendered item frames encode the movement/grip for runtime. New items need actual baked coverage for their supported actions/directions.
 
-| Item family | Typical renderer/resolver categories | Shared rig usage |
-| --- | --- | --- |
-| Shirt/armor | Torso_Upper, Torso_Lower, optional UpperArm/Forearm parts | same torso/arm bones; body appearance replacement or compatible overlays |
-| Helmet | HeadEquipment | Head socket |
-| Cape/back item | BackEquipment, additional overlay parts if needed | Chest socket/shared calibrated bones |
-| Belt | WaistEquipment | Pelvis socket |
-| Sword/axe/spear/staff/relic | Weapon_R or Weapon_L | real hand socket, per-direction grip |
+Runtime categories describe passes (Body, Hair_Back/Front, Clothing_Upper/Lower, Armor_Back/Front, Shoes, Weapon_Back/Front, Accessories, with Body/Outfit front passes when required). Labels can be `Appearance_Action_Direction_fNNN`; record the actual convention and compatible bank/sample revisions. Every pass uses one authoritative action/direction/index. An equipment library must not discard body mappings.
 
-One item can map several resolvers. Multiple pieces on one slot can be a socket prefab with child resolvers; there is no requirement that one category equals one entire item. Library assets must include the active item's labels for every supported direction. Do not replace a complete character library with a weapon-only library and accidentally remove body categories.
+Minimal item data: item/slot ID, source art and authoring attachment/grip, supported action/direction banks, sample schedule compatibility, resolver/pass mappings, replaced categories, overlays/masks, front/back occlusion and optional per-frame FX/grip anchors. A static socket offset alone cannot produce a complete animated baked weapon bank.
 
-Minimal equipment data: item ID, slot ID, compatible rig revision, per-direction category→label mappings, grip/local pose offsets, required direction coverage, optional socket prefab. Runtime selection validates the complete item/direction data before applying changes. Empty slots use explicit empty sprites/labels and clear prior prefabs. Loading saved equipment must preserve item IDs and fail usefully for removed data.
+Base master outfit is a fitted sleeveless top and shorts with bare feet. Torso armor can replace Clothing_Upper while retaining Clothing_Lower. Boots cover the appropriate foot regions with preserved ground anchor. Hair/headgear uses recorded hair visibility/masks. An overlay must hide covered base pixels through matching masks/pass precompositing, or explicitly replace the appropriate category; do not let the base shirt/feet leak through.
 
-For mesh-deformed clothing, sprite skin metadata and shared bone/mesh compatibility must be checked. A resolver selecting a new Sprite does not by itself make an incompatible SpriteSkin rig valid. Rigid pieces avoid many binding problems but still require matching pivots and scale.
+One flat body and one flat item cannot support every hand/torso overlap. Use split front/back body/item passes or tested masking, then compare the composite to the fully equipped source pose. Baked image cleanup that changes a contour must update affected masks/item occlusion.
 
-Test changing BaseShirt→LeatherArmor→IronArmor while IdleSouth/WalkSouth continue playing, then Sword→Axe on Weapon_R. Verify unchanged skeleton/clip assets, stable pivots, hand grip and part sort order. Test supported requested directions and the action that uses the item. RareArmor/RelicWeapon are ordinary item data entries, not new animation architectures.
+At swap time validate the full required frame set and coverage before applying. Retain the last complete valid appearance on failure; optional empty slots are explicit. Keep the same current pose index, action/time and anatomical identities. Test BaseClothing→LeatherArmor→IronArmor and Sword→Axe during idle/walk/action and SW when required, without recreating shared authoring clip timing.

@@ -50,3 +50,16 @@ Record atomic sprite/clip selection, gait phase preservation, action-facing lock
 | TBD | TBD | TBD | TBD | TBD | pending |
 
 Record the complete required body/equipment category-label mapping, renderer inventory, SpriteSkin compatibility (if used), and source/imported mesh coverage. Validate each oblique direction against its own calibration. South validation does not establish Southwest validity.
+
+## v2 baked direction coverage
+
+Runtime projection / native canvas / common ground anchor: inherit CHARACTER_SPEC and FRAME_BANK_SPEC
+18-piece inventory and source bone/socket calibration above apply to authoring, not required runtime renderers.
+Runtime render pass layout / occluder and mask policy / layout revision: TBD
+Mirroring policy and asymmetry evidence: TBD (never exchange anatomical limbs to fake a step)
+
+| Direction | Source calibration revision | Action banks / appearances actually complete | Missing coverage | Final frame and switch evidence |
+| --- | --- | --- | --- | --- |
+| TBD | TBD | none | TBD | pending |
+
+Runtime direction change: preserve normalized action phase; select the corresponding frame in every required pass atomically. On missing coverage retain the last complete valid view and report the missing bank. Record actual resolver selections and frame index at failure. Source socket orientations are baked into item frames or per-frame anchor tracks.

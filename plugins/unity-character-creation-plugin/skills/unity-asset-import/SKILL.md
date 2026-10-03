@@ -1,6 +1,6 @@
 ---
 name: unity-asset-import
-description: "Import rig-ready PSD, PSB, or PNG character assets into Unity with compatible 2D Animation and PSD Importer packages, consistent PPU, sprite pivots, and crisp pixel-art settings."
+description: "Import editable rig source assets and baked layered pixel frames into Unity with consistent canvas, pivots, PPU, alpha and supported sprite/package settings."
 ---
 
 # unity-asset-import
@@ -18,18 +18,18 @@ unity command --caller plugin --skill unity-asset-import --project-path "/absolu
 
 Use equivalent installed Unity MCP tools when available; discover their real names and target explicitly. Require successful live target command discovery before production. Inspect status and discovery together: headless Editors may be absent from status; live discovery is decisive. Diagnose Safe Mode or sandbox visibility before declaring an open Editor absent. If the plugin/project/editor is unavailable, report the specific blocker and stop dependent production; no offline implementation fallback. The plugin is separately installed, not embedded or automatically enabled by this pack.
 
-Then read `../character-production-orchestrator/references/production-contract.md` and `../character-production-orchestrator/references/stage-map.md` (for the orchestrator use its own `references/` directory). Find the Unity project root independently of the pack's location. Read its `character-production/CHARACTER_SPEC.md`, `DIRECTION_SPEC.md`, `ANIMATION_SPEC.md`, `EQUIPMENT_SPEC.md` and `QA_CHECKLIST.md`. These are the durable source of truth; chat requests become recorded revisions. Inspect prerequisites before proceeding. Never overwrite existing specs with blank templates.
+Then read `../character-production-orchestrator/references/production-contract.md` and `../character-production-orchestrator/references/stage-map.md` (for the orchestrator use its own `references/` directory). Find the Unity project root independently of the pack's location. Read its `character-production/CHARACTER_SPEC.md`, `DIRECTION_SPEC.md`, `ANIMATION_SPEC.md`, `EQUIPMENT_SPEC.md`, `FRAME_BANK_SPEC.md` and `QA_CHECKLIST.md`. These are the durable source of truth; chat requests become recorded revisions. Inspect prerequisites before proceeding. Never overwrite existing specs with blank templates.
+
+
+Default production mode: **hybrid-baked-frames**. Read the [hybrid pipeline](../character-production-orchestrator/references/hybrid-pipeline.md). The skeleton is an editable authoring tool; final gameplay uses cleaned synchronized frame layers. Distinguish source rig checks from final frame/runtime checks.
 
 ## Stage workflow
 
-Use [missing-parts diagnosis](../character-production-orchestrator/references/missing-parts-diagnosis.md) for renderer holes or disappearance. Compare source alpha, sprite rectangle/pivot and generated mesh coverage before blaming animation. Confirm that required opaque/overlap regions survive import; inspect tight geometry and deformation bounds rather than assuming a successful import is a complete sprite.
+1. Inspect the target Editor/package versions using the Unity plugin. Use official Unity package-management/sprite-editor skills when needed. Verify actual PSD/PSB support; layered PSB is preferred where supported. Never invent importer properties or hand-edit Unity serialized YAML.
+2. For authoring source, preserve layer names, pivots, dimensions and alpha. Use consistent PPU, Point filtering and suitable compression/no-mipmap settings for the project. Verify actual source meshes/bind metadata when SpriteSkin is used.
+3. For baked runtime PNG frames, read FRAME_BANK_SPEC.md: common canvas, ground anchor, dimensions, PPU, action/direction timing and render-pass layout. Full-canvas frames are the initial default. Trimming/atlasing is allowed only with restored offsets and independently verified pivot alignment.
+4. Import final pixel-cleaned frames rather than raw bake outputs when cleanup exists. Preserve transparency and crisp edges; check color/alpha fringes, scaling, texture padding and generated sprite rectangles. Do not pixel-resample each equipment layer differently.
+5. Construct SpriteLibrary categories/labels for synchronized frame playback and validate all required body/item selections. Record actual sprite paths/GUIDs and metadata. Optional empty equipment is explicit; missing required body frames is a blocker.
+6. Preview imported layered composites at the target camera scale and compare to final art. Record evidence and revisions in specs before setting validated.
 
-Requires: validated part inventory and actual Unity project. Use the installed `unity:unity-package-management` and `unity:sprite-editor` skills when their workflows apply, in addition to the mandatory Unity gate.
-
-1. Inspect editor version and installed package versions through the Unity plugin. Verify 2D Animation and PSD Importer support; prefer the supported layered PSB workflow. Do not assume every Unity/PSD Importer version accepts layered PSD equally. Document actual accepted format and convert/export through an appropriate art tool if needed.
-2. Record PPU from CHARACTER_SPEC.md and apply it consistently to body and equipment. Use Point filtering, suitable sprite mode, no mipmaps for pixel-art defaults, and compression/settings that preserve the target silhouette. Choose settings from the actual camera/platform needs and record exceptions.
-3. Preserve source layer names and inspect generated sprites, rectangles, alpha, pivots, layer-to-transform mapping and texture size. Ensure joint alignment survives the import. PNG pieces can use rigid transform attachment; skeletal mesh use requires proper sprite skinning data, not just a SpriteSkin component.
-4. Inspect supported importer rig/character options instead of assuming menu labels or serialized fields. Generate/update assets through Editor APIs exposed by the plugin; never invent GUIDs or hand-edit serialized asset YAML.
-5. Reconstruct the neutral character in a test scene and compare to the approved artwork at native scale. Save import evidence and GUID/path inventory in DIRECTION_SPEC.md; record editor/package versions and rendering policy in CHARACTER_SPEC.md.
-
-Output: correctly imported sprites with reproducible import policy. Import success does not imply skeleton or skinning validation. Stop at package/import errors and diagnose them before rigging.
+Output: calibrated authoring imports and/or final runtime frame sprites according to the stage requested. Import success is not bake or gameplay validation.

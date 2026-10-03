@@ -1,69 +1,58 @@
-# Character production QA
+# Character production QA — hybrid pipeline
 
-Character ID / scope / revision: TBD
-Referenced master / direction / rig / animation / equipment revisions: TBD
-Overall status: pending
-Evidence directory / scene / editor/package versions: TBD
+Character / source and bank revisions / test scene / Unity version: TBD
+Requested actions, directions and equipment coverage: TBD
+Evidence paths / reviewer / date: TBD
+Unchecked entries are pending, not proof of failure or success.
 
-Use pending / pass / fail / blocked / stale per check. A pass requires an actual observation and evidence; a planned test remains pending. Mark checks outside the requested scope N/A with a reason.
+## Master and direction sources
 
-| Check | Status | Artifact revision / test mode | Evidence path / observed result |
-| --- | --- | --- | --- |
-| Canonical master identity, proportions and palette | pending | TBD | TBD |
-| Requested neutral direction coverage and anatomical L/R | pending | TBD | TBD |
-| Parts reconstruct the master and have hidden overlaps | pending | TBD | TBD |
-| Imported PPU, filtering, alpha, pivots and naming | pending | TBD | TBD |
-| Shared skeleton, prefab bindings and six sockets | pending | TBD | TBD |
-| Joint ranges: no gaps, rubber deformation or pixel distortion | pending | TBD | TBD |
-| IdleSouth stable neutral and loop seam | pending | TBD | TBD |
-| WalkSouth five keys, real leg identities, opposite subtle arms | pending | TBD | TBD |
-| Front/rear depth, body bob and stable head | pending | TBD | TBD |
-| Requested actions use their own phase grammar and timings | pending | TBD | TBD |
-| Action/direction coverage, markers, loop/final poses | pending | TBD | TBD |
-| Equipment swaps retain shared animations | pending | TBD | TBD |
-| Attached test weapon and two-hand grip where needed | pending | TBD | TBD |
-| Direction changes preserve appearance, timing and sorting | pending | TBD | TBD |
-| Animator idle/walk/action/interrupt/hold transitions | pending | TBD | TBD |
-| Runtime input, normalized diagonals, retained/locked facing | pending | TBD | TBD |
-| Ground sorting across characters and props | pending | TBD | TBD |
-| Gameplay effects have one owner and correct marker timing | pending | TBD | TBD |
-| Compilation and console clean for requested scope | pending | TBD | TBD |
-| Play mode, scene reload and multiple-instance behavior | pending | TBD | TBD |
+- [ ] Canonical identity, measured proportions, palette, neutral pose and base outfit recorded.
+- [ ] Simple fitted top/shorts/bare feet baseline or accepted existing outfit; no unintended master regeneration.
+- [ ] Requested direction masters keep anatomical limb identity, camera and common anchor.
+- [ ] Both arms/legs readable; each oblique view has its own source calibration.
 
-## Defect log
+## Source parts, import and rig
 
-| ID | Reproduction: direction/action/equipment | Expected vs actual | Owner stage | Severity / status | Fix revision / retest evidence |
-| --- | --- | --- | --- | --- | --- |
-| TBD | TBD | TBD | TBD | TBD | TBD |
+- [ ] 18 source pieces and extra clothing/equipment layers have safe hidden overlap at every joint.
+- [ ] Pivots, imported mesh coverage, source crop offsets, PPU and alpha validated.
+- [ ] Shared source hierarchy, actual binding paths and six sockets checked.
+- [ ] Rigid pieces preferred; joint deformation/weighting minimal; scale changes controlled.
+- [ ] Source pose keys, curve extrema and intermediate samples reviewed; no gaps or unexpected clipping.
+- [ ] Walk physical leg identity preserved; opposite subtle arm swing and depth order correct.
 
-## Scope verdict and next task
+## Bake and pixel cleanup
 
-Validated coverage: none yet
-Missing / blocked / stale coverage: TBD
-Native-scale captures / runtime logs: TBD
-Next owner stage and concrete task: TBD
+- [ ] Real deterministic exporter run in Unity; source states restored afterwards; raw outputs kept.
+- [ ] Camera/canvas/PPU/common pivot consistent; loop samples exclude duplicate endpoint.
+- [ ] Every layer/item uses identical pose times and bank revision.
+- [ ] Occlusion-aware passes/masks or split passes match the complete equipped source render.
+- [ ] EVERY final frame reviewed at native scale for gaps, detached parts, outline, pixel shape and grip.
+- [ ] Cleanup preserves identity and registration; final frame differs from raw only through recorded edits.
+- [ ] No independently generated frame identities or undocumented tight crops.
 
-## Missing-part and oblique-walk incident record
+## Bank import, wardrobe and gameplay
 
-Direction / clip / equipment / first failing time: TBD
-Failure class: neutral / fixed-direction motion / direction switch / equipment (choose)
-Expected silhouette and intentionally occluded regions: TBD
-Required renderer inventory / source and imported sprite paths: TBD
-Observed symptom / suspected cause: TBD
-Discriminating check / confirmed cause: TBD
-Applied source, pivot, binding, pose, resolver or sorting fix: TBD
-Sampling step / playback speed / curve extrema / tested revisions: TBD
-Before/after captures / continuous runtime evidence: TBD
-Remaining unexplained gaps / missing required parts: TBD
-Retest outcome / next owner stage: pending / TBD
+- [ ] FRAME_BANK_SPEC matches actual file count, exact timestamps, labels and required pass coverage.
+- [ ] Point filtering, mipmaps/compression, alpha, full-rect/pivot and atlas boundaries validated.
+- [ ] Upper/lower garment replacement independent; body coverage and explicit empty slots verified.
+- [ ] One action clock selects all pass sprites atomically; no independent per-layer Animator drift.
+- [ ] Direction/equipment switch retains normalized phase and uses complete compatible banks.
+- [ ] Missing-bank swap preserves last complete valid outfit/view and reports the missing selection.
+- [ ] Weapon position/rotation stays aligned with the baked hand for every frame.
+- [ ] Gameplay marker crossings, low FPS, interruption, one-shot completion and hold tested.
+- [ ] Movement/input/physics and ground sorting remain separate from visual motion.
+- [ ] At least two continuous walk cycles plus action/direction/equipment transitions rendered.
 
-| Reproduction condition | Status | Clip times / revision | Native-scale evidence / observation |
-| --- | --- | --- | --- |
-| South reference neutral / walk | pending | TBD | TBD |
-| Affected direction neutral (e.g. Southwest) | pending | TBD | TBD |
-| Affected direction locked for entire walk cycles | pending | TBD | TBD |
-| Joint and curve extrema plus intermediate poses | pending | TBD | TBD |
-| South/West ↔ Southwest at contact and passing, when affected | pending | TBD | TBD |
-| Base body / empty equipment versus affected loadout | pending | TBD | TBD |
+## Defect localization and release
 
-Pass requires zero unexplained joint gaps or unexpectedly missing required regions across the recorded scope. Natural spaces between limbs and documented intentional occlusion are allowed. Missing renders or inaccessible Unity keep the test blocked/pending. Protocol/documentation checks are not a confirmed fix of a game prefab.
+- [ ] Compare source pose → raw bake → final cleaned PNG → runtime layered composite at the same time/index.
+- [ ] Isolate locked Southwest walking, neutral SW and direction transitions when investigating diagonal gaps.
+- [ ] Record actual failing renderer/pass/label/index, confirmed cause and discriminating test.
+- [ ] Retest the failing frame and continuous playback after fixing its stage.
+- [ ] Changed source/clip/item/layout revisions invalidate affected downstream banks and QA status.
+- [ ] All requested coverage complete or missing work explicitly recorded; compilation is not visual QA.
+
+| Check / incident | Input revision | Evidence / confirmed cause | Fix and retest | Status / blocker |
+| --- | --- | --- | --- | --- |
+| TBD | TBD | TBD | TBD | pending |

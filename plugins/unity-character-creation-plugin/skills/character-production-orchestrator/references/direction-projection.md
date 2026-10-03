@@ -1,4 +1,4 @@
-# Direction artwork and skeletal projection
+# Direction artwork and source pose projection
 
 Use one canonical identity and one skeleton across directions. This table describes neutral artwork and initial locomotion projection; action poses and occlusion are validated separately. Screen vectors use +X right and +Y up. A pixel editor with Y down needs conversion, and the actual Unity world's axes are recorded in CHARACTER_SPEC.md.
 
@@ -19,4 +19,6 @@ Distinguish **forward-travel leg** from **camera-near leg**. They coincide at So
 
 Capture each direction's local neutral transform values before animation. Keep fixed anatomical L/R names even when screen-left/right positions change. Directional equipment grip offsets and render order belong to that direction's specification. Reusing a bone hierarchy never guarantees identical SpriteSkin bind poses across independently imported art; validate binding compatibility or use rigid sprite pieces.
 
-For new production, validate the South loop and equipment attachment first, then complete the requested coverage. For all-eight delivery, missing masters or clips remain blockers. Neutral art, articulated poses and gameplay movement are different artifacts; no stage produces frame-by-frame walking sheets.
+For new production, validate the South loop and equipment attachment first, then complete the requested coverage. For all-eight delivery, missing masters or clips remain blockers. Neutral art, authoring poses, exported frame banks and gameplay movement are distinct artifacts. Bake/clean each required direction and play its synchronized layers at runtime.
+
+The bone rules in this guide apply to authoring. Runtime direction changes select complete cleaned frame sets on one clock; source rig crossfades do not drive default gameplay visuals. See [layered playback](layered-frame-playback.md).

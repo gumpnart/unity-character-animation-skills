@@ -65,3 +65,19 @@ Test scene / evidence directory: TBD
 ## Revision history and unresolved decisions
 
 Record changes, reason, affected downstream stages, evidence and stale status. Do not infer validation or approval from a blank template.
+
+## v2 production pipeline and master baseline
+
+pipeline_mode: hybrid-baked-frames
+Pipeline revision / accepted decision / earlier policies superseded: TBD
+Authoring: shared source rig and AnimationClips
+Gameplay: cleaned frame banks; one clock selects all runtime layers
+Master baseline proposal: fitted sleeveless top, simple shorts, bare feet, baseline hair; no armor or weapon
+Neutral pose: balanced weight, both feet planted, arms slightly clear of torso, both limbs readable
+Final outfit / silhouette / palette decisions: TBD (preserve an existing accepted master)
+Base clothing source layers / hidden body patches / replacement regions: TBD
+Native master width and height / shared frame canvas / common ground anchor: TBD
+Authoring prefab and bake scene/camera paths: TBD
+Raw export / final cleanup / runtime frame-bank / runtime prefab paths: TBD
+Canvas / PPU / alpha / crop and pivot contract: see FRAME_BANK_SPEC.md
+Source clips and baked banks have separate paths and revisions. Source validation does not establish final frame validity.

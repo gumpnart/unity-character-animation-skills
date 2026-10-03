@@ -1,4 +1,4 @@
-# Action grammar and animation authoring
+# Action grammar, authoring and baked timing
 
 Actions are data identified by an arbitrary stable string such as `SwordLightAttack`, `Mining`, or `Celebrate`; the examples below are suggestions, not an enum. Specify pose grammar per action, any number of keys, configurable durations, loops/holds, marker events, facing lock, root motion and completion behavior. Mechanical defaults are proposals until recorded and tested.
 
@@ -47,3 +47,7 @@ Animation events are signals such as `Contact`, `Release`, `Footstep`, `ComboWin
 | 0.50 | Recovery | restore directional neutral, return to latest idle/walk | Complete |
 
 These are starting values, not generated art or a prevalidated clip. Run native-scale previews and refine to the user's requested action. Two-handed actions pose the secondary hand to the weapon grip; do not swap hand identities. Custom actions such as digging, fishing, climbing or dance follow the same specification mechanism.
+
+## Hybrid frame output
+
+The five-key walk table is the editable skeletal source, not a requirement to export exactly five images. Record a common bake sample schedule in FRAME_BANK_SPEC.md (for example six loop frames at 12 FPS for a 0.5-second walk). Inspect and clean every final frame. All body/item passes sample the same source pose times; semantic action markers stay on the shared timeline and are dispatched even when a render update skips frames. See [bake and cleanup](bake-and-cleanup.md).

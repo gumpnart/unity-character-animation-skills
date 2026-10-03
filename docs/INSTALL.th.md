@@ -1,76 +1,81 @@
-# ติดตั้ง Unity 2.5D Character ใน Codex Desktop
+# ติดตั้งและอัปเดต Unity Character Creation ใน Codex Desktop
 
-Plugin: `unity-character-creation-plugin` · Version: `1.0.1` · รวมทั้ง 13 skills
+Plugin: `unity-character-creation-plugin` · Version: `2.0.0` · 13 skills
 
-## 1. ดาวน์โหลดไว้บนเครื่องที่ใช้ Codex
+## ติดตั้งจาก source repository
 
-Clone repo ไว้ในโฟลเดอร์ถาวรบนเครื่องที่ใช้ Codex Desktop อย่าย้ายหรือลบโฟลเดอร์ระหว่างที่ยังใช้ local marketplace นี้อยู่
+บนเครื่องที่ใช้ Codex Desktop ให้ clone ลงโฟลเดอร์ถาวร:
 
 ```bash
 git clone https://github.com/gumpnart/unity-character-creation-plugin.git
 cd unity-character-creation-plugin
-```
-
-หากมี clone ของ repo เดิมอยู่แล้ว ให้แก้ origin เป็นชื่อใหม่:
-
-```bash
-git remote set-url origin https://github.com/gumpnart/unity-character-creation-plugin.git
-git remote get-url origin
-```
-
-ชื่อ plugin ที่ใช้เรียกงานตอนนี้คือ `unity-character-creation-plugin` หากเคยติดตั้งชื่อเดิมไว้ ให้เปิด marketplace ปัจจุบันแล้วติดตั้ง/เปิดใช้งานชื่อใหม่นี้ก่อนเรียกสกิล
-
-โครงสร้างสำคัญคือ `.agents/plugins/marketplace.json` และ `plugins/unity-character-creation-plugin/.codex-plugin/plugin.json` ซึ่งชี้ถึง 13 skills ภายใน plugin Clone ให้ครบ รวมไฟล์และโฟลเดอร์ที่ขึ้นต้นด้วยจุด
-
-## 2. เปิดหน้าติดตั้ง plugin
-
-ใช้ Python 3 บนเครื่องของคุณ:
-
-```bash
-python scripts/open_plugin.py
-```
-
-บน macOS/Linux หากคำสั่งชื่อ `python3` ให้ใช้ `python3` แทน สคริปต์จะแสดง View และ Share link ที่ใส่ path จริงของ marketplace บนเครื่องคุณแล้ว เปิด View link ด้วย Codex Desktop หรือใช้:
-
-```bash
 python scripts/open_plugin.py --open
 ```
 
-ในหน้ารายละเอียด plugin ให้กด Install และเปิดใช้งาน หากแอปให้เลือกว่าจะเปิดลิงก์นี้ด้วยโปรแกรมใด ให้เลือก Codex สคริปต์นี้เปิดหน้ารายละเอียดเท่านั้น; มันไม่ได้ยืนยันว่าติดตั้งหรือเปิดใช้สำเร็จแล้ว
+ถ้าเปิดอัตโนมัติไม่ได้ ใช้ `python scripts/open_plugin.py` แล้วเปิดลิงก์ **View plugin** ที่พิมพ์ออกมา เลือก **Install** และเปิดใช้งานใน Codex Desktop ลิงก์ต้องชี้ marketplace ในเครื่องเดียวกับแอป อย่าย้ายหรือลบโฟลเดอร์ที่ local marketplace ใช้อยู่
 
-ถ้า Codex ไม่รับลิงก์ ให้ตรวจว่าติดตั้ง Codex Desktop รุ่นที่รองรับ plugins, โฟลเดอร์ repo ยังอยู่ และพาธในลิงก์เป็นพาธบนเครื่องเดียวกันกับแอป ลิงก์ที่มี `/workspace/...` ของ cloud session จะไม่ชี้ถึงไฟล์บน desktop ของคุณ ให้สร้างลิงก์ด้วยสคริปต์บนเครื่องแทน
+ติดตั้ง official **Unity** plugin แยกต่างหาก เปิด Unity Editor และเปิด game project เป้าหมายใน Codex ทุกครั้งที่เรียก skill ต้องตรวจ connection และเรียก Unity tools จริง แม้เป็นงานวางแผนหรือ QA หากไม่เชื่อมต่อจะหยุดขั้น production ที่ขึ้นกับ Unity
 
-## 3. เชื่อมต่อ Unity
+แพ็กนี้รวม skills, คู่มือและ templates ไม่ได้รวม Unity bridge, exporter สำเร็จรูป หรือ character assets ที่ bake แล้ว Codex ต้องสร้าง/ปรับสิ่งเหล่านี้ในโปรเจกต์เกมและตรวจผลจริงตาม workflow
 
-ติดตั้ง official Unity plugin ใน Codex แยกต่างหาก และเปิด Unity Editor ของเกมเป้าหมาย ทั้ง 13 skills จะเรียก plugin นี้ใหม่ทุกครั้งก่อนเริ่มงาน ตรวจ [ขั้นตอน Unity](../plugins/unity-character-creation-plugin/skills/character-production-orchestrator/references/unity-plugin.md) และทำตามคำสั่งของ official plugin ที่ติดตั้งอยู่จริง
+## อัปเดต clone เดิม
 
-แพ็กนี้รวม workflow และ templates; ไม่ได้ฝัง Unity Editor หรือ tooling ของ official Unity plugin การตั้งค่า CLI/Pipeline ที่อธิบายไว้รองรับ Unity 6.0+ และไม่ควรอัปเกรดโปรเจกต์เดิมโดยอัตโนมัติ
+ถ้ายังใช้ชื่อ repo เก่า ให้แก้ origin ก่อน:
 
-## 4. เปิด Unity repo ใน Codex และเริ่มงาน
-
-เลือก repo เกมที่มี `Assets`, `Packages`, `ProjectSettings` แล้วเริ่ม thread ใหม่:
-
-```text
-Use the character-production-orchestrator skill from the unity-character-creation-plugin plugin.
-Start a new modular 2.5D RPG character from master-character.
-Inspect the repository first.
-Create the character production specification before directional artwork or rigging.
-Do not skip stages.
+```bash
+git remote set-url origin https://github.com/gumpnart/unity-character-creation-plugin.git
+git pull --ff-only
+python scripts/validate_plugin.py
+python scripts/open_plugin.py --open
 ```
 
-หาก Codex แสดงชื่อสกิลแบบมี prefix ให้เลือกสกิลจาก plugin นี้ ข้อมูล canonical จะบันทึกใน `character-production/` ของ repo เกม ไม่ใช่โฟลเดอร์ plugin และไม่ต้องพึ่ง context จากแชตเพียงอย่างเดียว
+ตรวจหน้ารายละเอียดว่าเป็นชื่อ `unity-character-creation-plugin` และรุ่น `2.0.0` แล้วใช้ตัวเลือก update/reload ที่แอปมี หากยังแสดงรุ่นเดิม ให้ติดตั้งใหม่จาก marketplace นี้ตาม UI และเริ่ม thread ใหม่ในโปรเจกต์เกม เก็บชื่อ 13 skills เดิมไว้
 
-เรียกขั้นตอนใดโดยตรงได้ เช่น:
+ถ้ามี standalone skills ซ้ำใน `.agents/skills/` ของเกม ให้ตรวจ custom edits ก่อนลบสำเนาซ้ำเมื่อเลือกใช้ plugin
+
+## เริ่มตัวละครใหม่
 
 ```text
-Use the animation-clip-authoring skill from the unity-character-creation-plugin plugin.
-Create SwordLightAttack for South using my canonical character specs.
+Use character-production-orchestrator from unity-character-creation-plugin.
+Inspect my Unity project first.
+Use hybrid-baked-frames and start from master-character.
+Create the six canonical specifications.
+Use a neutral character in a fitted sleeveless top, shorts and bare feet.
+Prove South Idle/Walk, one outfit and one weapon before expanding eight directions.
+Do not skip baking, pixel cleanup or rendered QA.
 ```
 
-ถ้าเคยติดตั้ง 13 skills แบบ standalone ไว้ใน `.agents/skills/` ของเกม ให้ตรวจ custom edits ก่อนนำสำเนาซ้ำออกเมื่อเปลี่ยนมาใช้ plugin เพื่อให้ Codex เลือกได้ชัดเจน
+master จะยึด identity, proportions, silhouette และ art style จากแบบที่ตกลงแล้ว ไม่จำเป็นต้องสร้างภาพเปลือย หากเปลี่ยนเสื้อผ้า ต้องเตรียมส่วนที่ซ่อนหรือถูกบังและพื้นที่ replacement ให้ครบ โดยแยกเสื้อกับกางเกง
 
-## อัปเดตและแชร์
+## ย้ายตัวละครจาก v1
 
-อัปเดต repo ด้วย `git pull` แล้วเปิดหน้ารายละเอียดอีกครั้งเพื่ออัปเดต/รีโหลด plugin ตามแอป รุ่นใน manifest เป็นเวอร์ชันของ plugin; อย่าถือว่าตัวติดตั้งรันซ้ำแล้วเกมผ่าน QA ใหม่ทันที
+```text
+Use character-production-orchestrator from unity-character-creation-plugin.
+Migrate my existing character to the v2 hybrid pipeline.
+Preserve accepted master art, source rigs, clips and item IDs.
+Add missing specs without overwriting existing values.
+Bake and clean South Idle/Walk, then implement and validate synchronized runtime layers.
+```
 
-ใช้ `python scripts/open_plugin.py --share --open` เพื่อเปิด Share view ของ local marketplace บนเครื่องคุณ หรือแชร์ URL ของ GitHub repo ให้ผู้รับ clone repo และสร้างลิงก์ด้วยเครื่องของเขาเอง
+v2 ใช้ rig สำหรับ authoring แล้ว bake เป็นเฟรม เก็บรายละเอียดพิกเซล และเล่น Body/Hair/Clothing/Armor/Weapon ตาม clock เดียวในเกม การติดตั้ง plugin ไม่แปลง prefab หรือแก้ภาพในเกมให้อัตโนมัติ ให้ทำตาม [migration guide](../plugins/unity-character-creation-plugin/skills/character-production-orchestrator/references/migration-v2.md) หลัง bank ใหม่ผ่าน QA จึงเปลี่ยนระบบภาพ runtime เดิม
+
+ไฟล์ `character-production/FRAME_BANK_SPEC.md` เพิ่มขึ้นเพื่อบันทึก canvas, pivot, จำนวนเฟรม, เวลาแต่ละเฟรม, render passes, labels, marker และ coverage ของอุปกรณ์ รวมกับ CHARACTER_SPEC / DIRECTION_SPEC / ANIMATION_SPEC / EQUIPMENT_SPEC / QA_CHECKLIST เป็น 6 ไฟล์
+
+อุปกรณ์ใหม่ใช้ source animation เดิมได้ แต่ยังต้องมีภาพแต่ละเฟรมของอุปกรณ์นั้นครบตาม action/ทิศที่ต้องการ ไม่ใช่เปลี่ยน PNG เดียวแล้วได้ทุก animation
+
+## สร้าง action หรือวิเคราะห์ภาพแหว่ง
+
+```text
+Use animation-clip-authoring from unity-character-creation-plugin.
+Create a South sword light attack using anticipation, contact and recovery.
+Author, bake all required layers, clean pixels and validate final playback.
+```
+
+```text
+Use character-production-qa from unity-character-creation-plugin.
+Diagnose missing parts during Southwest walking.
+Compare source pose, raw bake, cleaned frame and runtime composite at the same time/index.
+Preserve my master and record the confirmed cause with rendered evidence.
+```
+
+ตรวจ source joints อย่างต่อเนื่อง และตรวจทุกเฟรมที่ export แล้ว รวมถึงตอนเปลี่ยนทิศ/อุปกรณ์ในเกม ดู [workflow ทั้งหมด](../plugins/unity-character-creation-plugin/README.md) และ [วิธีใช้ Unity tooling](../plugins/unity-character-creation-plugin/skills/character-production-orchestrator/references/unity-plugin.md)

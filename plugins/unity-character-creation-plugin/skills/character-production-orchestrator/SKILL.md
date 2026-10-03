@@ -1,6 +1,6 @@
 ---
 name: character-production-orchestrator
-description: "Coordinate a modular 2.5D Unity character production pipeline from master design to directional artwork, rig-ready parts, import, rigging, arbitrary skeletal actions, equipment and runtime QA. Use to start a character, resume production or select the next stage without skipping prerequisites."
+description: "Coordinate the hybrid Unity pixel character pipeline from neutral master and source rig to baked cleaned frame layers, modular equipment and synchronized gameplay."
 ---
 
 # character-production-orchestrator
@@ -18,19 +18,19 @@ unity command --caller plugin --skill character-production-orchestrator --projec
 
 Use equivalent installed Unity MCP tools when available; discover their real names and target explicitly. Require successful live target command discovery before production. Inspect status and discovery together: headless Editors may be absent from status; live discovery is decisive. Diagnose Safe Mode or sandbox visibility before declaring an open Editor absent. If the plugin/project/editor is unavailable, report the specific blocker and stop dependent production; no offline implementation fallback. The plugin is separately installed, not embedded or automatically enabled by this pack.
 
-Then read `../character-production-orchestrator/references/production-contract.md` and `../character-production-orchestrator/references/stage-map.md` (for the orchestrator use its own `references/` directory). Find the Unity project root independently of the pack's location. Read its `character-production/CHARACTER_SPEC.md`, `DIRECTION_SPEC.md`, `ANIMATION_SPEC.md`, `EQUIPMENT_SPEC.md` and `QA_CHECKLIST.md`. These are the durable source of truth; chat requests become recorded revisions. Inspect prerequisites before proceeding. Never overwrite existing specs with blank templates.
+Then read `../character-production-orchestrator/references/production-contract.md` and `../character-production-orchestrator/references/stage-map.md` (for the orchestrator use its own `references/` directory). Find the Unity project root independently of the pack's location. Read its `character-production/CHARACTER_SPEC.md`, `DIRECTION_SPEC.md`, `ANIMATION_SPEC.md`, `EQUIPMENT_SPEC.md`, `FRAME_BANK_SPEC.md` and `QA_CHECKLIST.md`. These are the durable source of truth; chat requests become recorded revisions. Inspect prerequisites before proceeding. Never overwrite existing specs with blank templates.
+
+
+Default production mode: **hybrid-baked-frames**. Read the [hybrid pipeline](../character-production-orchestrator/references/hybrid-pipeline.md). The skeleton is an editable authoring tool; final gameplay uses cleaned synchronized frame layers. Distinguish source rig checks from final frame/runtime checks.
 
 ## Stage workflow
 
-When resuming a reported defect, first use [missing-parts diagnosis](references/missing-parts-diagnosis.md) with character-production-qa/joint-skinning-validation. Reproduce and classify the affected direction/action before routing a repair. Preserve valid master artwork and unaffected stages; do not regenerate the entire character or expand coverage while the required affected view fails. Require the guide's actual rendered evidence before restoring validated status.
+1. Inspect the repository first and read production-contract, stage-map, hybrid-pipeline, master-design and all six canonical specs. Find the actual Unity game project independently of the plugin's location.
+2. Initialize missing specs from `assets/character-production/` without overwriting populated files. For new work record `pipeline_mode: hybrid-baked-frames`. Preserve existing identity and source rigs. For projects using v1.x read [migration](references/migration-v2.md), record the pipeline revision and invalidate affected runtime/frame acceptance, not valid artwork indiscriminately.
+3. Start a new character with a neutral master and simple base outfit. Register the user's requested direction/action/item scope; South remains the first small vertical slice even for eventual all-eight coverage. Any named action is supported.
+4. Select the first incomplete dependency and explicitly invoke its named skill. Every invocation makes its own fresh Unity plugin call. Do not invent asset completion or skip from source clips to validated runtime; real bake outputs, pixel cleanup review and final frame-bank imports are required gates. No agent delegation unless user/project instructions authorize it.
+5. Prove master → South source parts/import/rig/joints → author Idle/Walk → bake/clean/import frame layers → shared-clock runtime → outfit replacement/weapon bank swap → QA. Then expand requested directions/actions/items using the same production contracts.
+6. Update revisions, evidence, blockers and next work in the six specs. A source pose change invalidates its baked banks; an item change can require re-baking that item without recreating the shared clips. Existing specs gain fields rather than blank-template replacement.
+7. For a defect, compare source pose, raw bake, final cleaned frame and runtime composite first. Preserve valid master art and route the confirmed failing stage. Finish requested coverage through character-production-qa with actual rendered evidence.
 
-1. Inspect the repository first: Unity project markers, existing character sources, specifications, prefabs, clips and runtime systems. Read `references/production-contract.md`, `references/stage-map.md`, and the current `character-production/*.md` files.
-2. If specifications are missing, initialize them from `assets/character-production/` without overwriting existing canonical files. Record the character brief and production scope first, before directional artwork or rigging. Do not create a finished-looking spec with guessed measurements.
-3. Resolve scope: South is the first new-character vertical slice; an eight-direction request registers all eight and expands after the South baseline passes. Any action ID is allowed. Keep missing requested combinations pending instead of silently reducing scope.
-4. Use the stage map to choose the first incomplete dependency. Begin a new character with master-character. Existing assets can satisfy stages only after real inspection and evidence are recorded; finding files alone is not validation.
-5. Explicitly invoke the selected named skill and follow its SKILL.md. Every invocation, including delegated stage invocations, makes a fresh Unity plugin call using its own skill label. Do not simulate use by mentioning a skill name. Do not spawn agents unless the user/project instructions authorize delegation.
-6. Persist each stage's outputs, revisions, evidence, blockers and next task in the canonical specs. When upstream art, proportions, rig or action timing changes, mark dependent outputs stale and route to their owner. Resume from files after context loss.
-7. Validate IdleSouth → WalkSouth → equipment swap → attached test weapon in a test scene before expanding a new rig broadly. Requested extra actions pass their own grammar/joint/transition checks; no fixed walk grammar constrains them.
-8. Finish the requested production scope through character-production-qa. If a prerequisite/tool/editor is missing, record the blocker and explain the smallest recovery step. Do not skip stages or claim completion based on proposed code or nonexistent art.
-
-Output: current canonical specs, completed requested stage outputs, evidence and a durable next-stage record. Orchestration selects work; each specialized skill performs and validates it.
+Output: durable production state and completed requested assets/runtime. This plugin defines a workflow; installing it does not bake assets or repair a game automatically.

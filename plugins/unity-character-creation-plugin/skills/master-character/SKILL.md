@@ -1,6 +1,6 @@
 ---
 name: master-character
-description: "Create or refine the canonical master design of a modular 2.5D RPG character before directional artwork, body-part extraction, or Unity rigging. Use for character identity, proportions, pixel style, and base character design."
+description: "Define the canonical neutral pixel character, identity, proportions and simple base outfit before directional artwork and rig-assisted frame production."
 ---
 
 # master-character
@@ -18,16 +18,18 @@ unity command --caller plugin --skill master-character --project-path "/absolute
 
 Use equivalent installed Unity MCP tools when available; discover their real names and target explicitly. Require successful live target command discovery before production. Inspect status and discovery together: headless Editors may be absent from status; live discovery is decisive. Diagnose Safe Mode or sandbox visibility before declaring an open Editor absent. If the plugin/project/editor is unavailable, report the specific blocker and stop dependent production; no offline implementation fallback. The plugin is separately installed, not embedded or automatically enabled by this pack.
 
-Then read `../character-production-orchestrator/references/production-contract.md` and `../character-production-orchestrator/references/stage-map.md` (for the orchestrator use its own `references/` directory). Find the Unity project root independently of the pack's location. Read its `character-production/CHARACTER_SPEC.md`, `DIRECTION_SPEC.md`, `ANIMATION_SPEC.md`, `EQUIPMENT_SPEC.md` and `QA_CHECKLIST.md`. These are the durable source of truth; chat requests become recorded revisions. Inspect prerequisites before proceeding. Never overwrite existing specs with blank templates.
+Then read `../character-production-orchestrator/references/production-contract.md` and `../character-production-orchestrator/references/stage-map.md` (for the orchestrator use its own `references/` directory). Find the Unity project root independently of the pack's location. Read its `character-production/CHARACTER_SPEC.md`, `DIRECTION_SPEC.md`, `ANIMATION_SPEC.md`, `EQUIPMENT_SPEC.md`, `FRAME_BANK_SPEC.md` and `QA_CHECKLIST.md`. These are the durable source of truth; chat requests become recorded revisions. Inspect prerequisites before proceeding. Never overwrite existing specs with blank templates.
+
+
+Default production mode: **hybrid-baked-frames**. Read the [hybrid pipeline](../character-production-orchestrator/references/hybrid-pipeline.md). The skeleton is an editable authoring tool; final gameplay uses cleaned synchronized frame layers. Distinguish source rig checks from final frame/runtime checks.
 
 ## Stage workflow
 
-Input: the character brief, available artwork, existing CHARACTER_SPEC.md, and project rendering constraints. For a fresh character this is the first production stage.
+1. Inspect repository, actual existing character art and specs first. Reuse validated identity/art where possible. Record `pipeline_mode: hybrid-baked-frames`, requested actions/directions, revision and source paths in CHARACTER_SPEC.md. Read the [master design guide](../character-production-orchestrator/references/master-design.md).
+2. Create/refine one neutral South master: slightly elevated 3/4 RPG camera, balanced weight on both feet, straight torso, arms slightly away from body, relaxed hands, modest leg separation. A walking pose is an identity reference, not sufficient neutral calibration.
+3. Proposed base outfit: plain fitted sleeveless top, simple fitted shorts, bare feet, a defined baseline hairstyle; no armor, hat, weapon, bag or cape. Record defaults as design choices, not measured facts. Existing suitable clothing can be retained. Body identity, removable base clothing and equipment layers are separate contracts.
+4. Use available image/art tools to produce/inspect real artwork. Record native canvas, palette, outline/light direction, PPU, ground anchor, anatomical L/R, face/hair identity, measured limb/head/body ratios and source measurement method. Unseen/unmeasured values stay TBD. No invented completed assets.
+5. Identify which outfit regions later equipment replaces or overlays. Keep complete covered joint artwork where motion or future supported clothing exposes it. Do not require a nude master; modest base/underlayers and hidden source patches are sufficient for the chosen coverage.
+6. Save actual asset/revision/evidence and unresolved decisions. Mark validated only after native-scale inspection meets the brief; explicit human approval is needed only when the task requests it. Changes to proportions invalidate dependent art/rig/baked banks. Do not skip ahead to eight-direction animation.
 
-1. Inspect the repository and find existing character assets/specifications before creating replacements. Identify the character ID, silhouette, intended camera, style, base outfit, handedness, and equipment needs. Ask only for missing decisions that materially affect identity; record reasonable technical defaults.
-2. Create `character-production/CHARACTER_SPEC.md` from the bundled template if absent. Keep identity, measured proportions, resolution, PPU, palette, lighting, anatomical L/R, and source paths together. Unspecified values remain TBD; never invent measured values from unseen artwork.
-3. Create or refine ONE neutral base master, normally South: front-facing at a slightly elevated 3/4 RPG angle, both arms and legs readable, limbs near neutral, equipment removable. Use available image tools for new artwork and inspect the result. If tools or source artwork are unavailable, record that blocker; a written description alone is not a completed visual master.
-4. Inspect the actual master at native pixel scale. Record landmark coordinates, head/body ratios, limb lengths, pelvis width, joint centers, ground contact, palette and outline rules. Specify source dimensions and how measurements were obtained. Keep these values canonical for all later stages.
-5. Record the master asset path, revision, validation evidence, unresolved identity choices, and next stage. Mark ready/validated only when actual artwork satisfies the brief. User design approval is required only if the task explicitly requests an approval gate.
-
-Output: master artwork plus a populated CHARACTER_SPEC.md. Never manufacture a directional set or split/rig the character before this contract is ready. If the user revises proportions, update the revision and mark dependent directions, parts, rigs and clips stale.
+Output: a canonical neutral master and durable CHARACTER_SPEC.md. This master locks identity; production frame cleanup may refine poses while preserving it.

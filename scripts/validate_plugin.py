@@ -56,7 +56,7 @@ def validate(root):
     for folder in (root / 'scripts', plugin / 'scripts'):
         for path in folder.glob('*.py'):
             compile(path.read_text(encoding='utf-8'), str(path), 'exec')
-    return {'plugin': name, 'version': manifest['version'], 'skills': 13, 'templates': 5,
+    return {'plugin': name, 'version': manifest['version'], 'skills': 13, 'templates': pack_result['templates'],
             'local_links': links, 'status': 'passed'}
 
 

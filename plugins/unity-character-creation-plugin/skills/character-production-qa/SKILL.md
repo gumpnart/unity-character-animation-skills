@@ -1,6 +1,6 @@
 ---
 name: character-production-qa
-description: "Audit modular 2.5D Unity character production from canonical artwork through directions, rigging, skeletal clips, equipment, Animator and runtime, and route defects to the correct stage."
+description: "Audit canonical master design, source rig, baked pixel frames, equipment coverage and synchronized runtime playback, diagnosing gaps at the correct production stage."
 ---
 
 # character-production-qa
@@ -18,19 +18,18 @@ unity command --caller plugin --skill character-production-qa --project-path "/a
 
 Use equivalent installed Unity MCP tools when available; discover their real names and target explicitly. Require successful live target command discovery before production. Inspect status and discovery together: headless Editors may be absent from status; live discovery is decisive. Diagnose Safe Mode or sandbox visibility before declaring an open Editor absent. If the plugin/project/editor is unavailable, report the specific blocker and stop dependent production; no offline implementation fallback. The plugin is separately installed, not embedded or automatically enabled by this pack.
 
-Then read `../character-production-orchestrator/references/production-contract.md` and `../character-production-orchestrator/references/stage-map.md` (for the orchestrator use its own `references/` directory). Find the Unity project root independently of the pack's location. Read its `character-production/CHARACTER_SPEC.md`, `DIRECTION_SPEC.md`, `ANIMATION_SPEC.md`, `EQUIPMENT_SPEC.md` and `QA_CHECKLIST.md`. These are the durable source of truth; chat requests become recorded revisions. Inspect prerequisites before proceeding. Never overwrite existing specs with blank templates.
+Then read `../character-production-orchestrator/references/production-contract.md` and `../character-production-orchestrator/references/stage-map.md` (for the orchestrator use its own `references/` directory). Find the Unity project root independently of the pack's location. Read its `character-production/CHARACTER_SPEC.md`, `DIRECTION_SPEC.md`, `ANIMATION_SPEC.md`, `EQUIPMENT_SPEC.md`, `FRAME_BANK_SPEC.md` and `QA_CHECKLIST.md`. These are the durable source of truth; chat requests become recorded revisions. Inspect prerequisites before proceeding. Never overwrite existing specs with blank templates.
+
+
+Default production mode: **hybrid-baked-frames**. Read the [hybrid pipeline](../character-production-orchestrator/references/hybrid-pipeline.md). The skeleton is an editable authoring tool; final gameplay uses cleaned synchronized frame layers. Distinguish source rig checks from final frame/runtime checks.
 
 ## Stage workflow
 
-For gaps, deformed joints or disappearing parts, run [missing-parts diagnosis](../character-production-orchestrator/references/missing-parts-diagnosis.md) before recommending a fix. Separate source, attachment, skinning, resolver, sorting and transition hypotheses with discriminating checks. Record direction/clip/time, expected silhouette, renderer inventory, revision, exact sampling and captures. A static neutral pose or a few selected keyframes cannot pass moving silhouette QA. Missing rendering evidence keeps that scope blocked/pending; report plugin protocol checks separately from a repaired Unity character.
+1. Build requested action/direction/item coverage from the six specs. Validate revisions and actual paths; a planned export or static check is not rendered runtime evidence.
+2. Inspect neutral masters/base outfit, source parts/overlap/import/pivots/rig and each direction's source poses. Confirm identity, anatomical sides and complete covered regions appropriate to supported clothing.
+3. Inspect ALL final exported frames at native scale and gameplay camera size. Verify alpha, silhouette, joints, palette, stable canvas/ground anchor/PPU, marker/pose schedules, final holds and loop seams. Record raw-vs-cleaned export revisions and preserved source assets.
+4. Validate bank coverage and every composited loadout: matching action/direction/time/index in body, armor, hair, weapon; deliberate replacements/masks; front/back interleaving; no leaked base clothing or missing required body regions. Compile success alone cannot pass these checks.
+5. Run continuous game playback, contact/passing direction changes, mid-cycle equipment swaps, all required transitions, low frame rate and multiple instances/ground sorting. Use [missing-parts diagnosis](../character-production-orchestrator/references/missing-parts-diagnosis.md) to distinguish source, bake, cleanup and runtime defects.
+6. Log exact frame/time/revision, renderer/bank selections, before/after captures, confirmed cause and owner stage in QA_CHECKLIST.md. Zero unexplained gaps/missing required regions in tested scope; deliberate occlusion is recorded. Missing actual rendered evidence keeps the scope blocked/pending.
 
-Input: canonical specs, actual assets/prefab/code, requested direction/action/equipment scope and QA_CHECKLIST.md. Run the Unity gate even for an audit.
-
-1. Build the coverage matrix from the requested scope; distinguish pending, blocked, stale and validated work. Inspect actual evidence paths and revisions. A checkmark or old screenshot does not validate changed assets.
-2. Compare artwork to CHARACTER_SPEC.md and DIRECTION_SPEC.md: identity, proportions, palette, overlap, pivots, anatomical sides and native pixel silhouettes. Check all required views and two-character comparisons.
-3. Inspect import policy, rig hierarchy/socket bindings, SpriteSkin mesh compatibility and joint ranges. Run joint-skinning-validation for suspect ranges and record failures with reproducible poses.
-4. Preview clips, phase timings, loop seams, action markers, front/rear depth, hand grip, direction transitions and terminal poses. Verify walk never swaps/mirrors actual legs; all other actions obey their own grammar.
-5. Test equipment changes, controller transitions, action interruption, death hold, movement return, world sorting and multiple instances in Play mode. Include compile/console errors and gameplay marker ownership. Reproduce defects at native pixel scale and the target camera configuration.
-6. Update QA_CHECKLIST.md with status, exact artifact revisions, commands/scenes, captures/log paths and observed outcomes. Route artwork gaps to parts, rig issues to rigging, motion to clip authoring, swaps to equipment and state/movement bugs to runtime/controller.
-
-Output: a scoped QA report with pass/block/stale findings and next steps. Only mark a requested release scope validated when its required checks have evidence. Clearly distinguish static file checks from actual Unity compilation, rendered previews and Play mode verification.
+Output: a scoped artwork-to-runtime QA verdict and routed fixes. Plugin packaging checks do not prove a generated character or exported bank is correct.

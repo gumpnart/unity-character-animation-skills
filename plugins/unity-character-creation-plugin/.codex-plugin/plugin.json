@@ -1,7 +1,7 @@
 {
   "name": "unity-character-creation-plugin",
-  "version": "1.0.1",
-  "description": "Produce modular 2.5D Unity RPG characters from master design through eight-direction skeletal actions, equipment, Animator, runtime and QA using 13 skills.",
+  "version": "2.0.0",
+  "description": "13 workflows for Unity 2.5D pixel RPG characters: master design, eight directions, rig-assisted action baking, pixel cleanup and layered equipment frame playback.",
   "author": {
     "name": "gumpnart",
     "url": "https://github.com/gumpnart"
@@ -16,13 +16,16 @@
     "skeletal-animation",
     "pixel-art",
     "equipment",
-    "eight-directions"
+    "eight-directions",
+    "animation-baking",
+    "layered-sprites",
+    "paper-doll"
   ],
   "skills": "./skills/",
   "interface": {
     "displayName": "Unity Character Creation",
-    "shortDescription": "13 skills for master design, skeletal actions and Unity character production",
-    "longDescription": "Start from canonical character identity and proportions, create eight direction masters and overlapping modular parts, build a shared Unity 2D rig, author arbitrary skeletal actions, integrate equipment and runtime behavior, and validate production through persistent specifications. Requires the separately installed official Unity plugin and a connected target Editor on every skill invocation.",
+    "shortDescription": "13 workflows for pixel characters, rig-assisted baking and layered equipment",
+    "longDescription": "Create a canonical neutral master in simple fitted clothing, author arbitrary actions on a shared Unity 2D rig, bake registered render passes, clean pixel silhouettes, and play synchronized body, hair, clothing, armor and weapon frame banks. Supports eight directions, wardrobe replacement, persistent specifications and visual QA. Requires the separately installed official Unity plugin and connected target Editor on every invocation. Updating the workflows does not automatically convert existing game assets.",
     "developerName": "gumpnart",
     "category": "Developer Tools",
     "capabilities": [
@@ -32,9 +35,9 @@
     ],
     "websiteURL": "https://github.com/gumpnart/unity-character-creation-plugin",
     "defaultPrompt": [
-      "Use character-production-orchestrator from unity-character-creation-plugin. Start with master-character.",
-      "Use animation-clip-authoring from unity-character-creation-plugin. Create SwordLightAttack for South.",
-      "Use character-production-qa from unity-character-creation-plugin. Review my character."
+      "Use character-production-orchestrator from unity-character-creation-plugin. Start a hybrid pixel character from its master.",
+      "Use animation-clip-authoring from unity-character-creation-plugin. Author, bake and clean SwordLightAttack for South.",
+      "Use character-production-qa from unity-character-creation-plugin. Check my layered character animation."
     ],
     "brandColor": "#0F766E",
     "composerIcon": "./assets/icon.svg",

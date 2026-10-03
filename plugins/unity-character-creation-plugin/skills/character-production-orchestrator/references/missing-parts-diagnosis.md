@@ -1,3 +1,7 @@
+# Hybrid defect localization
+
+First compare four artifacts: source rig pose → raw bake PNG → final cleaned frame → runtime layered composite. If the final PNG/composite is clean but gameplay breaks, inspect frame index, item/action/direction mapping, canvas/pivot, replacement masks and pass order before changing the source rig. Source SpriteSkin/bone checks below apply to authoring; default runtime has no live limb deformation. Every final exported frame requires inspection.
+
 # Diagnose missing parts and motion gaps
 
 Use this protocol when a character is complete in one pose/direction but develops missing pixels, detached joints, disappearing limbs or silhouette holes during motion. A report of gaps during Southwest walking is a symptom, not proof of a particular cause. Collect the affected direction, clip, phase, equipment, actual frame/capture, renderer state and rig revision before assigning a root cause.
@@ -75,7 +79,7 @@ For an affected action/direction, save actual screenshots/capture sequence and a
 - Rendered continuous playback for at least two walk cycles, including actual runtime motion.
 - Contact/passing direction switches and the affected equipment combination.
 
-Discrete samples alone cannot prove every continuous pose correct. Use continuous playback and inspect suspicious intervals more densely. Captures are diagnostic evidence, not frame-by-frame source animation; the skeleton still drives production animation.
+Discrete samples alone cannot prove every continuous pose correct. Use continuous playback and inspect suspicious intervals more densely. These source captures validate the editable authoring clip. In the hybrid pipeline, separately inspect every raw/cleaned exported frame and the synchronized runtime composite; gameplay plays approved final images.
 
 Pass requires zero unexplained joint gaps and zero unexpectedly missing required regions/parts across the recorded requested coverage. Compare to the approved silhouette; natural background spaces between separate limbs are not defects. Existing stylized cut-outs require a recorded design reason. If renders, source inspection or inventories are unavailable, mark blocked/pending rather than validated.
 

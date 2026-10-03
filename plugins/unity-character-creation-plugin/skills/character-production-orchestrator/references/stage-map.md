@@ -1,29 +1,23 @@
-# Stage routing and dependency gates
+# Hybrid production stage routing
 
-| Stage | Prerequisites | Durable outputs / next checks |
+| Skill | Prerequisite | Durable output / next gate |
 | --- | --- | --- |
-| master-character | brief or existing base art | master + CHARACTER_SPEC → direction-master |
-| direction-master | validated master | neutral view(s) + DIRECTION_SPEC → rig-ready-parts |
-| rig-ready-parts | validated requested neutral view | aligned overlapping pieces → unity-asset-import |
-| unity-asset-import | part inventory | imported assets + policy → unity-skeleton-rig |
-| unity-skeleton-rig | aligned imported assets | shared rig/prefab/sockets → joint-skinning-validation |
-| joint-skinning-validation | actual rig | joint range evidence → clip/equipment stages |
-| animation-clip-authoring | calibrated direction, validated joints | any named action + ANIMATION_SPEC |
-| directional-animation-system | validated base action, requested views/calibration | 4/8 direction mappings and action variants |
-| modular-equipment-system | shared rig/sockets, item artwork | EQUIPMENT_SPEC + swaps + test weapon |
-| animator-controller | validated clips and action/parameter contract | saved controller + transition evidence |
-| runtime-character-controller | prefab, controller contract, direction/item data | movement/facing/actions/sorting/test scene |
-| character-production-qa | scoped artifacts + runtime | coverage, regressions, evidence, stage routing |
-| character-production-orchestrator | repository/brief | initialize specs, select/resume stage, track dependencies |
+| master-character | brief/existing design | neutral base outfit + identity/proportions → directions |
+| direction-master | validated master | requested neutral views/camera/anchor → parts |
+| rig-ready-parts | validated requested views | overlapping editable sources + pass roles → source import |
+| unity-asset-import | source parts OR final bake frames | calibrated source imports OR final runtime sprites |
+| unity-skeleton-rig | imported source | authoring rig/calibration/sockets → joint checks |
+| joint-skinning-validation | source rig OR final frames | source joint evidence OR baked silhouette validation |
+| animation-clip-authoring | source rig/joints/action spec | source clip → real bake → cleaned final frames → final import |
+| directional-animation-system | validated base action/bank and requested source views | complete requested directional banks/selection |
+| modular-equipment-system | source rig/item art/pose schedule | baked item passes, replacements/masks and bank swaps |
+| animator-controller | final bank/action contract | one semantic state/action clock and transitions |
+| runtime-character-controller | final sprites/banks/controller/items | synchronized frame layers, movement, events, sorting |
+| character-production-qa | scoped source/frame/runtime artifacts | evidence and routed fixes |
+| character-production-orchestrator | repository/brief/specs | initialize/migrate persistent state and select first dependency |
 
-Stages form a dependency graph, not an excuse to skip checks. Equipment can be developed after joint validation alongside initial clips. Directional expansion needs a tested base action and the neutral/parts/import/rig gates for each additional direction. Runtime does not require nonexistent unrequested combat actions.
+The graph includes repeated import/validation stages. A source AnimationClip is not a completed runtime animation. The animation-authoring stage owns bake/cleanup registration; final exports return to import/joint QA before gameplay. No extra skill is required to hide these mandatory steps.
 
-For a new character, first prove master → South neutral → parts/import → rig → joints → IdleSouth → WalkSouth → equipment swap → attached test weapon → controller/runtime/QA. Then expand requested direction/action coverage, revisiting joints when actions exceed validated ranges. A user may request all eight, but South is still the first small validation checkpoint.
+New slice: neutral master → South parts/import → authoring rig/joints → Idle/Walk clips → bake/clean/import body/hair/outfit layers → one shared-clock runtime → baked test armor/weapon swap → rendered QA. Then expand requested directions/actions/items. A request for all eight keeps missing combinations pending/blocked rather than reducing scope.
 
-If existing assets satisfy a prerequisite, inspect and record their validation and revision; do not recreate them blindly. If art changes, invalidate affected parts/import/rig calibration/clips/equipment/QA. If rig binding paths change, invalidate clip bindings and controller/runtime checks. If action timing changes, retest event markers and gameplay timing. If only a weapon sprite changes, retest grip/sorting/coverage without recreating Walk clips.
-
-For direct skill use, a missing prerequisite routes back to its owner rather than fabricating placeholders. Save the blocker, output inventory and concrete next task in the canonical stage ledger. Do not require user confirmation for ordinary implementation unless their task explicitly calls for approval.
-
-## Recovery for missing parts or gaps during motion
-
-Use the [missing-parts diagnosis](missing-parts-diagnosis.md) before assigning a root cause. Compare neutral, fixed-direction motion, direction transitions and equipment independently. Route a confirmed failure to its owner stage; preserve valid master art and other directions. Restored validated status requires the guide's actual renderer inventory, intermediate/extreme pose captures and continuous playback evidence. A passing neutral pose is not a motion acceptance test.
+Defect recovery compares authoring pose, raw export, cleaned final frame and runtime composite. Fix only the confirmed owner stage, preserve valid master/source work and mark affected banks/runtime evidence stale. A new item can reuse source action clips but requires compatible frame coverage. Record next work and evidence in the six specs; missing actual tools/assets remain blocked.

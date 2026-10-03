@@ -1,6 +1,6 @@
 ---
 name: directional-animation-system
-description: "Expand validated skeletal character actions to 4 or 8 directions with stable anatomical limbs, common phase timing, direction-specific poses and draw ordering, and synchronized facing changes."
+description: "Expand actions and synchronized baked body/equipment frame banks to 4 or 8 directions using per-direction source poses, anchors and occlusion ordering."
 ---
 
 # directional-animation-system
@@ -18,21 +18,18 @@ unity command --caller plugin --skill directional-animation-system --project-pat
 
 Use equivalent installed Unity MCP tools when available; discover their real names and target explicitly. Require successful live target command discovery before production. Inspect status and discovery together: headless Editors may be absent from status; live discovery is decisive. Diagnose Safe Mode or sandbox visibility before declaring an open Editor absent. If the plugin/project/editor is unavailable, report the specific blocker and stop dependent production; no offline implementation fallback. The plugin is separately installed, not embedded or automatically enabled by this pack.
 
-Then read `../character-production-orchestrator/references/production-contract.md` and `../character-production-orchestrator/references/stage-map.md` (for the orchestrator use its own `references/` directory). Find the Unity project root independently of the pack's location. Read its `character-production/CHARACTER_SPEC.md`, `DIRECTION_SPEC.md`, `ANIMATION_SPEC.md`, `EQUIPMENT_SPEC.md` and `QA_CHECKLIST.md`. These are the durable source of truth; chat requests become recorded revisions. Inspect prerequisites before proceeding. Never overwrite existing specs with blank templates.
+Then read `../character-production-orchestrator/references/production-contract.md` and `../character-production-orchestrator/references/stage-map.md` (for the orchestrator use its own `references/` directory). Find the Unity project root independently of the pack's location. Read its `character-production/CHARACTER_SPEC.md`, `DIRECTION_SPEC.md`, `ANIMATION_SPEC.md`, `EQUIPMENT_SPEC.md`, `FRAME_BANK_SPEC.md` and `QA_CHECKLIST.md`. These are the durable source of truth; chat requests become recorded revisions. Inspect prerequisites before proceeding. Never overwrite existing specs with blank templates.
+
+
+Default production mode: **hybrid-baked-frames**. Read the [hybrid pipeline](../character-production-orchestrator/references/hybrid-pipeline.md). The skeleton is an editable authoring tool; final gameplay uses cleaned synchronized frame layers. Distinguish source rig checks from final frame/runtime checks.
 
 ## Stage workflow
 
-For oblique walking gaps or disappearing parts, run [missing-parts diagnosis](../character-production-orchestrator/references/missing-parts-diagnosis.md). Validate locked-direction neutral/motion and direction transitions separately. Southwest uses its own calibrated pivots, overlap and near/far order; copying South curves/sort order does not establish compatibility. Validate required body/equipment labels before applying the complete direction update; retain the last complete valid view on missing required mappings. Do not blend incompatible direction rest poses without rendered evidence.
+1. Require a validated base action and requested direction masters/calibrations. Read direction-projection, bake-and-cleanup and layered-frame-playback references. Keep all requested action/direction combinations in the coverage matrix.
+2. Reuse semantic action grammar/marker timing but author the appropriate front/side/back/oblique source poses. Preserve anatomical L/R and asymmetric art. Do not mirror one view or reuse South joint/sort assumptions for SW without evidence.
+3. Bake all body/item passes for a direction with the same duration, FPS or sample schedule, canvas, anchor and source pose. Validate every final frame and its composite, not only the source rig. Record per-frame order/masks and optional front/back passes.
+4. Change direction atomically: validate complete body/loadout frame coverage, preserve normalized gait phase and select the matching frame in ALL layers before rendering. Do not crossfade deforming rigs or independently advance a weapon/armor Animator in the default frame runtime.
+5. For action-facing locks retain the action's recorded view until allowed to turn. On missing required data keep the last complete valid view and report the combination; do not make individual body parts disappear.
+6. Test locked direction playback and contact/passing transitions separately, especially South/West↔SW. Persist coverage/evidence in DIRECTION_SPEC.md, ANIMATION_SPEC.md and FRAME_BANK_SPEC.md; expand only after the South baseline passes.
 
-Read `../character-production-orchestrator/references/direction-projection.md` before adapting poses and renderer depth.
-
-Requires: a validated base action in ANIMATION_SPEC.md, validated requested direction masters/rig calibrations, and DIRECTION_SPEC.md.
-
-1. Read requested scope and register the exact canonical direction names. For an all-eight request cover South, SouthWest, West, NorthWest, North, NorthEast, East, SouthEast; do not mark missing views complete. Keep South-first validation as the initial checkpoint for a new character.
-2. Preserve action semantics, markers, phase durations and actual L/R identities. Author per-direction rest-relative bone poses and sprite labels, with depth swing for South/North, side projection for East/West and blended projection for diagonals. Sharing timing does not imply copying identical curves across views.
-3. Define each direction's neutral sort order, transient action sort changes and socket/grip orientation in DIRECTION_SPEC.md. Back/side occlusion and clothing asymmetry must match the neutral masters. No negative-scale mirroring to fake a direction or the opposite step.
-4. Use explicit action/direction clip mappings for the first implementation; choose a blend tree only when compatible rigs/curves and visual blending have been verified. Apply direction library selection and clip state on the same update; preserve current gait phase during locomotion changes. Lock facing for an action when its spec requires it.
-5. Preview direction changes at rest, contact, passing and action markers. Verify no identity jumps, pose pops, flipped grips, stale sorting or wrong artwork. Align phase markers for variants and document justified variations.
-6. Save mapping/coverage and evidence in ANIMATION_SPEC.md and DIRECTION_SPEC.md. Missing required action/direction combinations block the requested release scope, while unrequested directions stay pending.
-
-Output: validated per-direction action clips and deterministic facing/clip/art selection contract. Delegate actual clip creation to animation-clip-authoring through explicit invocation so its Unity gate also runs.
+Output: complete requested direction/action frame bank mappings and synchronized selection behavior.

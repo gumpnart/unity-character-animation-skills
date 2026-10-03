@@ -22,14 +22,18 @@ def main():
         assert isinstance(json.loads(match[2]), str) and len(json.loads(match[2])) > 40, path
         assert '--caller plugin --skill ' + name in text, path
         assert 'On EVERY invocation' in text and 'stop dependent production' in text, path
-        assert 'CHARACTER_SPEC.md' in text and 'QA_CHECKLIST.md' in text, path
+        assert all(spec in text for spec in ('CHARACTER_SPEC.md', 'DIRECTION_SPEC.md',
+                   'ANIMATION_SPEC.md', 'EQUIPMENT_SPEC.md', 'FRAME_BANK_SPEC.md', 'QA_CHECKLIST.md')), path
+        assert 'hybrid-baked-frames' in text, path
         # Resolve shared reference paths for both repository and installed sibling layout.
         base = path.parent
         for relative in ('../character-production-orchestrator/references/production-contract.md',
-                         '../character-production-orchestrator/references/stage-map.md'):
+                         '../character-production-orchestrator/references/stage-map.md',
+                         '../character-production-orchestrator/references/hybrid-pipeline.md'):
             assert (base / relative).is_file(), (path, relative)
     templates = {'CHARACTER_SPEC.template.md', 'DIRECTION_SPEC.template.md',
-                 'ANIMATION_SPEC.template.md', 'EQUIPMENT_SPEC.template.md', 'QA_CHECKLIST.md'}
+                 'ANIMATION_SPEC.template.md', 'EQUIPMENT_SPEC.template.md',
+                 'FRAME_BANK_SPEC.template.md', 'QA_CHECKLIST.md'}
     assert {p.name for p in (root / 'character-production').glob('*.md')} == templates
     embedded = root / 'skills/character-production-orchestrator/assets/character-production'
     for name in templates:

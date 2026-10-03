@@ -1,26 +1,12 @@
-# Shared character production contract
+# Character production contract
 
-## Persistent state
+Read [hybrid pipeline](hybrid-pipeline.md), [master design](master-design.md), [bake and cleanup](bake-and-cleanup.md) and [layered playback](layered-frame-playback.md). Default mode is `hybrid-baked-frames`; frame production replaces the old blanket frame-animation prohibition for this requested v2 workflow.
 
-Find the target Unity project root, normally containing `Assets/`, `Packages/` and `ProjectSettings/`. This skill pack is not itself a Unity project. All stages read `character-production/` under that project. Use one active character per directory initially; for multiple characters use `character-production/characters/<character-id>/` and record the active ID/path in the top-level CHARACTER_SPEC.md. Do not mix measurements between characters.
+Canonical state lives under the actual Unity game project's `character-production/`: CHARACTER_SPEC.md, DIRECTION_SPEC.md, ANIMATION_SPEC.md, EQUIPMENT_SPEC.md, FRAME_BANK_SPEC.md, QA_CHECKLIST.md. For multiple characters use per-character subdirectories and record the active directory. Never mix identities or overwrite populated specs. Chat changes become recorded revisions; missing measurements stay TBD.
 
-| File | Owns |
-| --- | --- |
-| CHARACTER_SPEC.md | Identity, approved master, canonical measurements, art/import policy, shared rig, stage ledger |
-| DIRECTION_SPEC.md | Neutral masters, part inventories, calibrated rest poses, pivots, sort orders, sockets, direction coverage |
-| ANIMATION_SPEC.md | Arbitrary action IDs, phase grammar, timing/pose tables, markers, clip/direction coverage, controller/runtime contract |
-| EQUIPMENT_SPEC.md | Slots, items, resolver labels, compatible rig revisions, grip offsets, equipment coverage |
-| QA_CHECKLIST.md | Evidence, issues, checks and scoped release results |
+Statuses: pending, draft, ready, validated, blocked, stale. Validated requires actual evidence at the relevant stage: source artwork/rig, exported cleaned frames and runtime playback are separate gates. Upstream changes invalidate affected downstream artifacts. Explicit user requests override prior policy; record that reconciliation before production. Approval gates apply only when explicitly requested, not every reversible step.
 
-Revision fields and evidence paths are required. Statuses: `pending` (not done), `draft` (proposed), `ready` (produced, awaits checks), `validated` (checks passed with evidence), `blocked` (missing prerequisite), `stale` (upstream changed). Planned assets, mock responses and compilation-free inspection cannot establish runtime validation. Record the actual mode used: static, rendered preview, Edit mode or Play mode.
-
-Update only the fields owned by the completed work and its dependencies. Keep existing canonical values unless revising them intentionally. Log upstream revision changes and mark affected outputs stale. An explicit user instruction overrides a prior spec; reconcile the spec before doing dependent work. Aesthetic approval gates apply only when requested; report unresolved design decisions honestly without inventing approval. No mandatory repeated permission prompts for routine reversible work.
-
-## Camera and physical identity
-
-2.5D means projected 2D artwork in an RPG world with a slightly elevated camera. South moves toward the bottom of the screen and generally faces the camera. Record actual world/screen axes for the project. Character L/R always means the character's anatomical side; screen-left changes with direction. Never swap bone identity or mirror a character to create the opposite walk contact. All animations belong to the same skeleton, including equipment variants.
-
-Eight canonical directions: South, SouthWest, West, NorthWest, North, NorthEast, East, SouthEast. Short names SW/NW/NE/SE are presentation aliases, not extra IDs. New production validates South first; requested scope can be all eight. Do not require new art when a suitable existing validated character already supplies it.
+South faces toward the camera/bottom of screen in a slightly elevated RPG view. L/R remains anatomical. Eight names: South, SouthWest, West, NorthWest, North, NorthEast, East, SouthEast. New production proves South first, then completes requested coverage. Directional skeletal poses are authoring assets; final gameplay selects their baked pixel frame banks.
 
 ## Exact source-part names
 
@@ -63,39 +49,15 @@ Root
 
 Twenty-one bones including Root. Six equipment sockets are additional attachments, not independent bones/rigs: Weapon_R→Hand_R, Weapon_L→Hand_L, HeadEquipment→Head, ChestEquipment→Chest, BackEquipment→Chest, WaistEquipment→Pelvis.
 
-## Suggested prefab and Unity project layout
 
-```text
-Character (movement/input/action owner, Animator, SpriteLibrary, SortingGroup)
-├── Collision / gameplay components
-├── VisualRoot (local bob only)
-│   └── Root (shared bones above; renderers beneath matching bones)
-│       └── ... Hand_R / Weapon_R, Hand_L / Weapon_L, etc.
-└── Shadow (ground-plane visual if needed)
+## Authoring and runtime layout
 
-Assets/Characters/<CharacterId>/
-  Source/              # layered artwork / exported pieces
-  Sprites/             # imported sprites and directional libraries
-  Prefabs/             # character and optional equipment prefabs
-  Animation/Clips/     # Action_Direction clips
-  Animation/Controllers/
-  Equipment/           # item data
-Assets/Scripts/Characters/Runtime/
-Assets/Scripts/Characters/Editor/
-Assets/Scenes/CharacterTest.unity
-character-production/  # persistent specs and evidence
-```
+The hierarchy above and sockets are source production assets. AnimationClip curves drive the authoring rig; clothing and weapons use it during bake. The default runtime uses the pass-renderer hierarchy in the layered playback guide, one action clock, SpriteLibrary/Resolver and ground SortingGroup. It does not need an independently deforming skeleton per item or live rotation of each limb.
 
-Adapt to existing repository conventions. Animate correct relative binding paths; actual imported hierarchy takes precedence over a hypothetical path. Keep locomotion displacement off the visual skeleton unless explicitly using root motion.
+Suggested assets under `Assets/Characters/<CharacterId>/`: Source/, Authoring/Prefabs/, Authoring/Clips/, Authoring/BakeScenes/, Baked/Raw/, Baked/Final/, Runtime/FrameBanks/, Runtime/Prefabs/, Equipment/. Respect existing conventions and preserve editable sources/cleanup separately.
 
-## Rendering and import rules
+Use Unity 2D Animation/PSD Importer for source production; verify actual package/editor compatibility. Use a real art tool for layered sources and pixel cleanup. The official CLI bridge supports Unity 6.0+; never silently upgrade an existing game. Every skill invocation requires a fresh actual Unity plugin call and connected target; use Editor APIs rather than guessed GUID/fileID YAML.
 
-Use Unity 2D Animation, PSD Importer, SpriteLibrary, SpriteResolver and Animator where appropriate. Verify package/editor compatibility instead of hard-coding package versions. The current official CLI/Pipeline bridge requires Unity 6.0+; do not upgrade an existing project silently. Load relevant official Unity package/sprite/pixel-perfect skills when needed.
+Point filtering, common PPU/canvas/ground anchor, correct alpha and actual native-scale inspection are required for final frames. Rig overlap and minimal weighting matter in production; per-frame cleanup plus coherent runtime layering preserve approved silhouettes. Bake files and runtime validation are not implied by plugin installation.
 
-Prefer rigid limb sprite pieces and bone transforms; use minimal joint weights where necessary. Point filtering and consistent PPU are the default for pixel art. Record pivots, full-canvas/crop offsets, pixel grid behavior and native-scale preview evidence. Bones can move subpixel in world units, so check rendered contours rather than claiming Point filtering alone guarantees perfect pixels.
-
-Use the live Editor for scenes, prefabs, libraries, clips and serialized data. Never create guessed GUID/fileID YAML. Source PSD/PSB editing needs an actual supported art tool; report missing tools rather than inventing editable layered assets. The mandatory plugin instructions are workflow requirements, not a plugin dependency manifest and not runtime gameplay calls.
-
-## Rendered moving-silhouette gate
-
-Every claimed validated action/direction must satisfy the [missing-parts diagnosis evidence gate](missing-parts-diagnosis.md): actual required-part inventory, per-direction attachment/overlap/visibility contract, phase and intermediate/extreme pose sampling, rendered continuous playback and relevant direction/equipment transitions. A structurally valid rig or a single neutral image is insufficient. Keep suspected causes separate from confirmed causes and plugin checks separate from a repaired Unity character.
+Every requested validated action/direction/loadout has final-frame inventory, masks/pass order, sample schedule, native renders and continuous gameplay evidence. Use [missing-parts diagnosis](missing-parts-diagnosis.md) to distinguish source gaps, bake/cleanup defects and runtime selection problems. Zero unexplained missing required regions; documented intentional occlusion is allowed.
