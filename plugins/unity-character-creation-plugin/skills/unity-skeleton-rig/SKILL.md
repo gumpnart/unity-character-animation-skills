@@ -22,6 +22,8 @@ Then read `../character-production-orchestrator/references/production-contract.m
 
 ## Stage workflow
 
+Read [missing-parts diagnosis](../character-production-orchestrator/references/missing-parts-diagnosis.md). Record a renderer inventory and per-direction attachment/rest calibration. Upper-arm origins remain anchored to Shoulder and thigh origins to Pelvis; child joints follow their parent chain. Do not translate each limb segment independently to simulate diagonal movement. Prefer rigid attachment for the initial pixel-art slice; use SpriteSkin only when the actual mesh, ordered bone bindings, weights, bind poses and deformed bounds have evidence. A shared bone hierarchy alone is insufficient validation for a different direction's imported sprite.
+
 Requires: imported aligned parts, validated canonical specifications, and the connected target Unity Editor. Use the exact shared skeleton and socket mapping in the production contract.
 
 1. Inspect the prefab/imported rig first and reuse correct bones. Create one character root with Animator, SpriteLibrary, SortingGroup and runtime owner; place the common skeleton under a stable visual root. Keep physics/movement outside local visual bobbing.

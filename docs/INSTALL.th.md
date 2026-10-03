@@ -1,6 +1,6 @@
 # ติดตั้ง Unity 2.5D Character ใน Codex Desktop
 
-Plugin: `unity-character-creation-plugin` · Version: `1.0.0` · รวมทั้ง 13 skills
+Plugin: `unity-character-creation-plugin` · Version: `1.0.1` · รวมทั้ง 13 skills
 
 ## 1. ดาวน์โหลดไว้บนเครื่องที่ใช้ Codex
 

@@ -22,6 +22,8 @@ Then read `../character-production-orchestrator/references/production-contract.m
 
 ## Stage workflow
 
+For joint holes or incomplete moving silhouettes, read [missing-parts diagnosis](../character-production-orchestrator/references/missing-parts-diagnosis.md). Validate overlap against the requested direction's rotation extrema, including Southwest; a neutral reassembly or passing South test alone does not validate oblique poses. Preserve complete opaque artwork beneath joints and check that hidden cut-edge outlines/caps do not become visible as seams or bulges during the sweep. Record measured overlap, pivot, allowed angle range and captures per joint/direction.
+
 Requires: CHARACTER_SPEC.md and validated requested neutral directions in DIRECTION_SPEC.md. Read the exact 18-part list in the production contract.
 
 1. Inspect source layers, transparency, dimensions and joint landmarks. Separate Hair_Back, Head, Hair_Front; Torso_Upper, Torso_Lower, Pelvis; and UpperArm, Forearm, Hand, Thigh, Shin, Foot for each anatomical side.

@@ -22,6 +22,8 @@ Then read `../character-production-orchestrator/references/production-contract.m
 
 ## Stage workflow
 
+When resuming a reported defect, first use [missing-parts diagnosis](references/missing-parts-diagnosis.md) with character-production-qa/joint-skinning-validation. Reproduce and classify the affected direction/action before routing a repair. Preserve valid master artwork and unaffected stages; do not regenerate the entire character or expand coverage while the required affected view fails. Require the guide's actual rendered evidence before restoring validated status.
+
 1. Inspect the repository first: Unity project markers, existing character sources, specifications, prefabs, clips and runtime systems. Read `references/production-contract.md`, `references/stage-map.md`, and the current `character-production/*.md` files.
 2. If specifications are missing, initialize them from `assets/character-production/` without overwriting existing canonical files. Record the character brief and production scope first, before directional artwork or rigging. Do not create a finished-looking spec with guessed measurements.
 3. Resolve scope: South is the first new-character vertical slice; an eight-direction request registers all eight and expands after the South baseline passes. Any action ID is allowed. Keep missing requested combinations pending instead of silently reducing scope.

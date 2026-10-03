@@ -22,6 +22,8 @@ Then read `../character-production-orchestrator/references/production-contract.m
 
 ## Stage workflow
 
+Use the [missing-parts diagnosis and evidence gate](../character-production-orchestrator/references/missing-parts-diagnosis.md). Capture the requested direction's rest pose and keep limb origins/segment lengths within its validated attachment range. Inspect curve overshoot, scale/visibility/sprite bindings and interpolated poses, including between contact and passing. Baseline walking requires exact phase keys, samples at intervals no greater than 1/60 second and at least two rendered runtime cycles. Log sampling speed/times and before/after evidence; unavailable rendered checks remain blocked/pending. These captures validate skeletal motion and are not production sprite-sheet frames.
+
 Requires: validated master, imported/rigged target direction, passing joint checks, and actual transform bindings. Read the action grammar reference in `../character-production-orchestrator/references/action-grammar.md`.
 
 1. Interpret the requested action without limiting it to a fixed enum or predefined list. Find or add its record in ANIMATION_SPEC.md: action ID, direction, duration, playback, grammar, phase timings, poses, markers, root-motion policy, facing lock, interrupt rules and completion behavior. Keep unspecified gameplay timing provisional and label assumptions.

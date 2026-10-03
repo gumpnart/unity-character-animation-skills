@@ -22,6 +22,8 @@ Then read `../character-production-orchestrator/references/production-contract.m
 
 ## Stage workflow
 
+Follow the [missing-parts diagnosis and evidence gate](../character-production-orchestrator/references/missing-parts-diagnosis.md). For a Southwest defect, compare SW neutral, locked SW playback and South/West↔SW switches before assigning a cause. Inspect joint rotation and motion-curve extrema, parent anchors, source overlap, resolver results and final camera rendering. Record zero unexplained gaps/missing required regions across tested coverage; deliberate occlusion is documented separately. Test intermediate poses and continuous playback, not only valid key poses, before setting validated.
+
 Requires: real imported sprites and rigged prefab. Validate the requested directions, with South as the initial baseline.
 
 1. Capture the neutral pose, then sweep shoulders, elbows, wrists, hips, knees and ankles through the ranges required by the proposed action. Use live Unity poses and inspect native-resolution captures; restore the neutral state afterward.

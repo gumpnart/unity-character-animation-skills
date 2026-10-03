@@ -22,6 +22,8 @@ Then read `../character-production-orchestrator/references/production-contract.m
 
 ## Stage workflow
 
+Use [missing-parts diagnosis](../character-production-orchestrator/references/missing-parts-diagnosis.md) when an equipped character loses body regions. Reproduce the same phase with base body/empty slots, then the item. Validate the whole required item/direction mapping before selection and retain the last valid complete loadout when validation fails; intentional empty equipment must not clear required body sprites. Check the selected item's pivots, SpriteSkin compatibility, grip and occlusion in the failing oblique view.
+
 Requires: validated shared rig, six sockets, direction mappings and imported compatible equipment artwork. Read the equipment contract reference.
 
 1. Create EQUIPMENT_SPEC.md with items and slots, category/label mappings, direction coverage, grip offsets, layered renderer sorting, source assets and rig compatibility requirements. Clothing may replace multiple body categories; rigid weapons use sockets. Multi-part armor can use several renderers with the shared bones.

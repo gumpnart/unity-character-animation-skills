@@ -22,6 +22,8 @@ Then read `../character-production-orchestrator/references/production-contract.m
 
 ## Stage workflow
 
+Use [missing-parts diagnosis](../character-production-orchestrator/references/missing-parts-diagnosis.md) for renderer holes or disappearance. Compare source alpha, sprite rectangle/pivot and generated mesh coverage before blaming animation. Confirm that required opaque/overlap regions survive import; inspect tight geometry and deformation bounds rather than assuming a successful import is a complete sprite.
+
 Requires: validated part inventory and actual Unity project. Use the installed `unity:unity-package-management` and `unity:sprite-editor` skills when their workflows apply, in addition to the mandatory Unity gate.
 
 1. Inspect editor version and installed package versions through the Unity plugin. Verify 2D Animation and PSD Importer support; prefer the supported layered PSB workflow. Do not assume every Unity/PSD Importer version accepts layered PSD equally. Document actual accepted format and convert/export through an appropriate art tool if needed.

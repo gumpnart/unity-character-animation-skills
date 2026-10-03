@@ -1,6 +1,6 @@
 # Unity Character Creation — Codex Desktop Plugin
 
-Codex plugin **`unity-character-creation-plugin`**, version **1.0.0**, containing the complete **13-skill** character production pack. It starts from a canonical master character and supports eight directions, arbitrary skeletal actions, equipment swapping, Animator/runtime integration and QA.
+Codex plugin **`unity-character-creation-plugin`**, version **1.0.1**, containing the complete **13-skill** character production pack. It starts from a canonical master character and supports eight directions, arbitrary skeletal actions, equipment swapping, Animator/runtime integration and QA.
 
 แพ็กนี้ติดตั้งเป็น Codex plugin ได้ทั้งชุด พร้อม 13 skills และ specification templates ที่ใช้ร่วมกัน ตั้งแต่ Master Character จนถึง runtime และ QA
 
@@ -94,3 +94,17 @@ python scripts/validate_plugin.py
 The plugin is registered through `.agents/plugins/marketplace.json`; its manifest discovers all 13 bundled skill directories. Installation happens in Codex Desktop after opening the generated View link. Remove an older standalone copy of these same 13 skills from a project's `.agents/skills/` after checking for custom edits if you choose plugin installation, to avoid duplicate discovery.
 
 Manifest and marketplace structure follow OpenAI's [plugin examples](https://github.com/openai/plugins) and [plugin-creator specification](https://github.com/openai/plugins/blob/main/.agents/skills/plugin-creator/references/plugin-json-spec.md). Source/installer checks are separate from actual Desktop installation and Unity runtime verification.
+
+## Gaps or missing parts during diagonal walking
+
+Version 1.0.1 adds a [missing-parts diagnosis protocol](plugins/unity-character-creation-plugin/skills/character-production-orchestrator/references/missing-parts-diagnosis.md) and stronger evidence gates across parts, import, rigging, animation, direction switching, equipment and QA. For Southwest defects, isolate neutral, locked-direction walking and direction transitions before changing art or rigging. Preserve valid master artwork and inspect actual renderer/overlap/pivot/binding data.
+
+```text
+Use joint-skinning-validation from unity-character-creation-plugin.
+Diagnose gaps during Southwest walking in my existing character.
+Compare neutral, locked SW and South/West-to-SW transitions.
+Inspect source overlaps, pivots, joint anchors, SpriteSkin bindings, resolver labels and sorting.
+Record the confirmed cause and before/after rendered evidence. Do not regenerate my master character.
+```
+
+The updated workflows improve diagnosis and acceptance criteria; installing the plugin does not automatically repair existing artwork/prefabs. Existing canonical specs should gain the new evidence fields without being overwritten. Unity rendering and runtime tests remain project-level work.

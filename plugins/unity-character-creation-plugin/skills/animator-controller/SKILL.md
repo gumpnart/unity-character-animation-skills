@@ -22,6 +22,8 @@ Then read `../character-production-orchestrator/references/production-contract.m
 
 ## Stage workflow
 
+Apply [missing-parts diagnosis](../character-production-orchestrator/references/missing-parts-diagnosis.md) to transition-only failures. Compare the direction's isolated clip to the real controller crossfade. Check residual scale/visibility/sprite/sorting curves and incompatible directional pose blends, then capture contact/passing switches. Do not certify transitions from standalone clip previews alone.
+
 Requires: validated clip/action records, direction mappings and runtime ownership decisions. Begin with IdleSouth/WalkSouth, then add only requested validated actions.
 
 1. Inspect the existing Animator Controller and parameter users. Define a small parameter contract and write it in ANIMATION_SPEC.md: movement magnitude/direction plus the needed action request/state mechanism. Avoid an enum that permanently limits the action IDs; map arbitrary action data to validated states or an appropriate playable/override strategy if the project already uses one.

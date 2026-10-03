@@ -95,3 +95,7 @@ Use Unity 2D Animation, PSD Importer, SpriteLibrary, SpriteResolver and Animator
 Prefer rigid limb sprite pieces and bone transforms; use minimal joint weights where necessary. Point filtering and consistent PPU are the default for pixel art. Record pivots, full-canvas/crop offsets, pixel grid behavior and native-scale preview evidence. Bones can move subpixel in world units, so check rendered contours rather than claiming Point filtering alone guarantees perfect pixels.
 
 Use the live Editor for scenes, prefabs, libraries, clips and serialized data. Never create guessed GUID/fileID YAML. Source PSD/PSB editing needs an actual supported art tool; report missing tools rather than inventing editable layered assets. The mandatory plugin instructions are workflow requirements, not a plugin dependency manifest and not runtime gameplay calls.
+
+## Rendered moving-silhouette gate
+
+Every claimed validated action/direction must satisfy the [missing-parts diagnosis evidence gate](missing-parts-diagnosis.md): actual required-part inventory, per-direction attachment/overlap/visibility contract, phase and intermediate/extreme pose sampling, rendered continuous playback and relevant direction/equipment transitions. A structurally valid rig or a single neutral image is insufficient. Keep suspected causes separate from confirmed causes and plugin checks separate from a repaired Unity character.

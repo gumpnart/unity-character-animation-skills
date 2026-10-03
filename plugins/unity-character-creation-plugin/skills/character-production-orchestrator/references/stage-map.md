@@ -23,3 +23,7 @@ For a new character, first prove master → South neutral → parts/import → r
 If existing assets satisfy a prerequisite, inspect and record their validation and revision; do not recreate them blindly. If art changes, invalidate affected parts/import/rig calibration/clips/equipment/QA. If rig binding paths change, invalidate clip bindings and controller/runtime checks. If action timing changes, retest event markers and gameplay timing. If only a weapon sprite changes, retest grip/sorting/coverage without recreating Walk clips.
 
 For direct skill use, a missing prerequisite routes back to its owner rather than fabricating placeholders. Save the blocker, output inventory and concrete next task in the canonical stage ledger. Do not require user confirmation for ordinary implementation unless their task explicitly calls for approval.
+
+## Recovery for missing parts or gaps during motion
+
+Use the [missing-parts diagnosis](missing-parts-diagnosis.md) before assigning a root cause. Compare neutral, fixed-direction motion, direction transitions and equipment independently. Route a confirmed failure to its owner stage; preserve valid master art and other directions. Restored validated status requires the guide's actual renderer inventory, intermediate/extreme pose captures and continuous playback evidence. A passing neutral pose is not a motion acceptance test.

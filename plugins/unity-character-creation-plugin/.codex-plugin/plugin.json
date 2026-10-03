@@ -1,6 +1,6 @@
 {
   "name": "unity-character-creation-plugin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Produce modular 2.5D Unity RPG characters from master design through eight-direction skeletal actions, equipment, Animator, runtime and QA using 13 skills.",
   "author": {
     "name": "gumpnart",

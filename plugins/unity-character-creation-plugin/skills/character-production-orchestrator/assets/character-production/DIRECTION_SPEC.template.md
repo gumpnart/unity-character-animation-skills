@@ -42,3 +42,11 @@ Names: Hair_Back, Head, Hair_Front, Torso_Upper, Torso_Lower, Pelvis, UpperArm_L
 ## Direction-change contract and revision history
 
 Record atomic sprite/clip selection, gait phase preservation, action-facing locks, variant coverage and all downstream stale artifacts.
+
+## Per-direction joint and visibility evidence
+
+| Joint / part | Rest anchor and pivot | Allowed rotation / translation / scale | Measured hidden overlap | Required visible region / intentional occlusion | Native-scale capture / status |
+| --- | --- | --- | --- | --- | --- |
+| TBD | TBD | TBD | TBD | TBD | pending |
+
+Record the complete required body/equipment category-label mapping, renderer inventory, SpriteSkin compatibility (if used), and source/imported mesh coverage. Validate each oblique direction against its own calibration. South validation does not establish Southwest validity.

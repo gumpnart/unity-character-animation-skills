@@ -22,6 +22,8 @@ Then read `../character-production-orchestrator/references/production-contract.m
 
 ## Stage workflow
 
+For gaps, deformed joints or disappearing parts, run [missing-parts diagnosis](../character-production-orchestrator/references/missing-parts-diagnosis.md) before recommending a fix. Separate source, attachment, skinning, resolver, sorting and transition hypotheses with discriminating checks. Record direction/clip/time, expected silhouette, renderer inventory, revision, exact sampling and captures. A static neutral pose or a few selected keyframes cannot pass moving silhouette QA. Missing rendering evidence keeps that scope blocked/pending; report plugin protocol checks separately from a repaired Unity character.
+
 Input: canonical specs, actual assets/prefab/code, requested direction/action/equipment scope and QA_CHECKLIST.md. Run the Unity gate even for an audit.
 
 1. Build the coverage matrix from the requested scope; distinguish pending, blocked, stale and validated work. Inspect actual evidence paths and revisions. A checkmark or old screenshot does not validate changed assets.

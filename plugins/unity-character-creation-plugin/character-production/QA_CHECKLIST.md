@@ -42,3 +42,28 @@ Validated coverage: none yet
 Missing / blocked / stale coverage: TBD
 Native-scale captures / runtime logs: TBD
 Next owner stage and concrete task: TBD
+
+## Missing-part and oblique-walk incident record
+
+Direction / clip / equipment / first failing time: TBD
+Failure class: neutral / fixed-direction motion / direction switch / equipment (choose)
+Expected silhouette and intentionally occluded regions: TBD
+Required renderer inventory / source and imported sprite paths: TBD
+Observed symptom / suspected cause: TBD
+Discriminating check / confirmed cause: TBD
+Applied source, pivot, binding, pose, resolver or sorting fix: TBD
+Sampling step / playback speed / curve extrema / tested revisions: TBD
+Before/after captures / continuous runtime evidence: TBD
+Remaining unexplained gaps / missing required parts: TBD
+Retest outcome / next owner stage: pending / TBD
+
+| Reproduction condition | Status | Clip times / revision | Native-scale evidence / observation |
+| --- | --- | --- | --- |
+| South reference neutral / walk | pending | TBD | TBD |
+| Affected direction neutral (e.g. Southwest) | pending | TBD | TBD |
+| Affected direction locked for entire walk cycles | pending | TBD | TBD |
+| Joint and curve extrema plus intermediate poses | pending | TBD | TBD |
+| South/West ↔ Southwest at contact and passing, when affected | pending | TBD | TBD |
+| Base body / empty equipment versus affected loadout | pending | TBD | TBD |
+
+Pass requires zero unexplained joint gaps or unexpectedly missing required regions across the recorded scope. Natural spaces between limbs and documented intentional occlusion are allowed. Missing renders or inaccessible Unity keep the test blocked/pending. Protocol/documentation checks are not a confirmed fix of a game prefab.

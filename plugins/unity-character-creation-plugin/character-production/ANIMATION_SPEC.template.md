@@ -45,3 +45,17 @@ Status / blocker / revision history: draft / TBD / TBD
 | TBD | TBD | TBD | TBD | TBD |
 
 Record Idle↔Walk, actions→latest locomotion, cast hold/release, hit/interrupt and death hold only when required clips exist. WalkSouth baseline is 0/.125/.250/.375/.500 seconds; it does not constrain other actions.
+
+## Moving-silhouette evidence (repeat per action/direction)
+
+Fixed-direction neutral / continuous-playback test: TBD
+Exact phase keys / motion-curve extrema / sampled intermediate times: TBD
+Sampling step / effective playback speed / runtime frame rate: TBD
+Parent joint anchors / segment-length changes / allowed scale changes: TBD
+Required renderer/sprite inventory at first failure: TBD
+Expected silhouette / intentional occlusion / unexpected gaps: TBD
+Direction transitions tested at contact and passing: TBD
+Native-scale capture sequence / before-after evidence paths: TBD
+Confirmed cause / discriminating test / fix / retest result: TBD
+
+For the 0.5-second walk include exact .000/.125/.250/.375/.500 keys, samples at intervals no greater than 1/60 second, curve extrema and two continuous rendered runtime cycles. Apply appropriate effective-rate sampling to other actions. A few keyframe captures or compilation alone do not validate the moving silhouette.

@@ -22,6 +22,8 @@ Then read `../character-production-orchestrator/references/production-contract.m
 
 ## Stage workflow
 
+For oblique walking gaps or disappearing parts, run [missing-parts diagnosis](../character-production-orchestrator/references/missing-parts-diagnosis.md). Validate locked-direction neutral/motion and direction transitions separately. Southwest uses its own calibrated pivots, overlap and near/far order; copying South curves/sort order does not establish compatibility. Validate required body/equipment labels before applying the complete direction update; retain the last complete valid view on missing required mappings. Do not blend incompatible direction rest poses without rendered evidence.
+
 Read `../character-production-orchestrator/references/direction-projection.md` before adapting poses and renderer depth.
 
 Requires: a validated base action in ANIMATION_SPEC.md, validated requested direction masters/rig calibrations, and DIRECTION_SPEC.md.
